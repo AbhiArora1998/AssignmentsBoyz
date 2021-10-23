@@ -8,6 +8,8 @@ public class Main {
         String dataFileName = inputReader.nextLine();
         File dataFile = new File(dataFileName);
 
+        int patientStartNum = 28064212;
         System.out.println("Simulation begins... ");
+
     }
 }
