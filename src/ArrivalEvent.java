@@ -5,6 +5,7 @@ public class ArrivalEvent extends Event{
     private final int time;
     private final char code;
     private final int treatmentTime;
+    private Patient patient;
 
     private final Random random = new Random(1000);
 
@@ -18,4 +19,10 @@ public class ArrivalEvent extends Event{
     public void happens() {
         new Patient(code, treatmentTime, random.nextInt(5)+1);
     }
+
+    public void priorityCheck(Patient patient){
+        patient.getPriority();
+    }
+
+
 }
