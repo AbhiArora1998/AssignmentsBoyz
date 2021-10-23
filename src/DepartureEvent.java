@@ -5,7 +5,7 @@
  * This event occurs when patients depart from the hospital
  *
  * @author Sebastian Lopez
- * Student Number: 230140171
+ * Student Number: 
  * @version 1
  */
 
