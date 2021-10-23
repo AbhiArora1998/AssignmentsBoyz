@@ -11,7 +11,10 @@
 
 import java.util.ArrayList;
 import java.util.Random;
-
+/*
+patient class provides the patientNumber, the priority and the treatment time it require according to the patient
+it then stores the person into the ArrayList
+ */
 public class Patient {
 
     public static final char CODE_MISSING = 0, CODE_W = 'W', CODE_E = 'E';
