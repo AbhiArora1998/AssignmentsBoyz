@@ -1,6 +1,6 @@
 /**
  * This file is part of a solution to
- *		CPSC300 Assigment 1 Problem 1 Fall 2021
+ *		CPSC300 Assignment 1 Problem 1 Fall 2021
  *
  * This event occurs when patients depart from the hospital
  *
