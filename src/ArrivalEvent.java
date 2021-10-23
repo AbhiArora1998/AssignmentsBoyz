@@ -15,7 +15,7 @@ public class ArrivalEvent extends Event{
 
     private final char patientType;
     private final int treatmentTime;
-    private AssessmentQueue assessmentQueue;
+    private LinearQueue linearQueue;
     private final Random random = new Random(1000);
 
     public ArrivalEvent(char patientType, int treatmentTime) {
