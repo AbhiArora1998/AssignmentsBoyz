@@ -2,8 +2,8 @@
  * This file is part of a solution to
  *		CPSC300 Assigment 1 Problem 1 Fall 2021
  *
- * Implements a place in line for a patient to wait. Each patient sees
- * the patient in front of them while in a line.
+ * Implements a place in line for a patient to wait. Each PatientNode stores
+ * the patient behind them while in a line.
  *
  * @author Noah Stobbe
  * Student Number: 230140171

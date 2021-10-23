@@ -15,7 +15,7 @@ public class WaitingQueue {
     public WaitingQueue() {}
 
     /**
-     * Adds a patient to the back of the waiting line
+     * Adds a patient to the waiting line
      * @param patient The patient to join the line
      * @return none
      */
