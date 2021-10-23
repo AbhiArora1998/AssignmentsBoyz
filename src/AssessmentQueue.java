@@ -9,10 +9,8 @@
  * @version 1
  */
 
-import java.util.ArrayList;
-
 public class AssessmentQueue {
-    private AssessmentNode head;
+    private PatientNode head;
 
     public AssessmentQueue() {}
 
@@ -23,17 +21,17 @@ public class AssessmentQueue {
      */
     public void add(Patient patient) {
         if (head == null) {
-            head = new AssessmentNode(patient);
+            head = new PatientNode(patient);
         } else {
-            AssessmentNode temp = head;
+            PatientNode temp = head;
             // Set temp to the last patient in the assessment line
             while (temp != null) {
                 temp = temp.getNext();
             }
             // Put new patient after last patient in line for assessment
-            temp.setNext(new AssessmentNode(patient));
+            temp.setNext(new PatientNode(patient));
         }
-        AssessmentNode newNode = new AssessmentNode(patient);
+        PatientNode newNode = new PatientNode(patient);
     }
 
     /**
@@ -41,16 +39,16 @@ public class AssessmentQueue {
      * returns null.
      * @return head The current head attribute of AssessmentQueue at the time this method is called
      */
-    public Patient remove(Patient patient) {
+    public Patient remove() {
         if (head == null) {
             return null;
         } else if (head.getNext() == null) {
-            AssessmentNode temp = head;
+            PatientNode temp = head;
             head = null;
             return temp.getPatient();
         } else {
             // Store the person at the front of the line separately as they are leaving the line
-            AssessmentNode temp = head;
+            PatientNode temp = head;
             // Second person in line becomes first
             head = head.getNext();
             return temp.getPatient();
