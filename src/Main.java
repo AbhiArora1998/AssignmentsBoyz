@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args)throws FileNotFoundException {
         Scanner inputReader = new Scanner(System.in);
         boolean filework = false;
-        Scanner fileInput = new Scanner(System.in);
+        Scanner fileInput = new Scanner(System.in); //needs to be set so java is happy
         while (!(filework)) {
             System.out.println("Please enter input file name: ");
             String dataFileName = inputReader.nextLine();
@@ -16,7 +16,6 @@ public class Main {
                 filework =true;
             }
         }
-            int patientStartNum = 28064212;
             char patientType = ' ';
             int timeOfPatient = 0;
             String patientString = fileInput.nextLine();
