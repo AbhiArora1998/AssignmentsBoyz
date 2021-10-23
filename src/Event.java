@@ -1,15 +1,18 @@
 public abstract class Event {
 
     protected int processingTime;
-    protected boolean done = false;
+    protected int creationTime;
+    protected int startTime;
 
-    public abstract void happens();
-
-    public boolean isDone() {
-        return done;
+    protected Event(){
+        creationTime = Clock.getTime();
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    protected void start() {
+        startTime = Clock.getTime();
+    }
+
+    public boolean isDone(){
+        return (Clock.getTime() - startTime) >= processingTime;
     }
 }

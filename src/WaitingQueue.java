@@ -1,6 +1,6 @@
 /**
  * This file is part of a solution to
- *		CPSC300 Assigment 1 Problem 1 Fall 2021
+ *		CPSC300 Assignment 1 Problem 1 Fall 2021
  *
  * Implements the line for patients to wait to be treated in order of priority level
  *
@@ -14,6 +14,11 @@ public class WaitingQueue {
 
     public WaitingQueue() {}
 
+    /**
+     * Adds a patient to the waiting line
+     * @param patient The patient to join the line
+     * @return none
+     */
     public void add(Patient patient) {
         PatientNode newPatientNode = new PatientNode(patient);
         // If there is no line
@@ -53,6 +58,27 @@ public class WaitingQueue {
             // At this point, we know that the spot for the new patient is between temp and temp.getNext()
             newPatientNode.setNext(temp.getNext());
             temp.setNext(newPatientNode);
+        }
+    }
+
+    /**
+     * Removes the patient at the front of the waiting line and returns the patient. If there exists no such line,
+     * returns null.
+     * @return head The current head attribute of WaitingQueue at the time this method is called
+     */
+    public Patient remove() {
+        if (head == null) {
+            return null;
+        } else if (head.getNext() == null) {
+            PatientNode temp = head;
+            head = null;
+            return temp.getPatient();
+        } else {
+            // Store the person at the front of the line separately as they are leaving the line
+            PatientNode temp = head;
+            // Second person in line becomes first
+            head = head.getNext();
+            return temp.getPatient();
         }
     }
 }
