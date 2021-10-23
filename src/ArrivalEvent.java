@@ -6,6 +6,7 @@ public class ArrivalEvent extends Event{
     private final int treatmentTime;
     private LinearQueue linearQueue;
     private final Random random = new Random(1000);
+    private Patient patient;
 
     public ArrivalEvent(char patientType, int treatmentTime) {
         super();

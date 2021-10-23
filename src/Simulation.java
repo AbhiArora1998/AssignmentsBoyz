@@ -2,14 +2,14 @@ public final class Simulation {
 
     public static final int NUMBER_OF_TREATMENT_ROOMS = 3;
 
-    private static AssessmentQueue assessmentQueue;
+    private static LinearQueue assessmentQueue;
     private static WaitingQueue waitingQueue;
     private static TreatmentRoom[] treatmentRooms; //TODO: treatment rooms taking care of themselves.
 
     public Simulation(){
         treatmentRooms = new TreatmentRoom[NUMBER_OF_TREATMENT_ROOMS];
         waitingQueue = new WaitingQueue();
-        assessmentQueue = new AssessmentQueue();
+        assessmentQueue = new LinearQueue();
     }
 
     public void doOneClockCycle(char patientType[], int processingTime[]){
