@@ -59,7 +59,7 @@ public class Patient {
      * @param type Type of patient (Walk-in [w] or Emergency [E])
      * @param treatmentTime How long will the treatment for this patient take
      */
-    public Patient(char type, int treatmentTime, int arrivalTime) {
+    public Patient( int arrivalTime, char type, int treatmentTime) {
         this.arrivalTime = arrivalTime;
         this.type = type;
         this.patientNumber = nextPatientNumber++;
