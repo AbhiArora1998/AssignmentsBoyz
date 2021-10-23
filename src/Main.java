@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Scanner;
 /*
 the class takes the input from the text file that we have created
@@ -15,8 +16,9 @@ public class Main {
             String dataFileName = inputReader.nextLine();
             //File dataFile = new File(dataFileName);
             System.out.println(dataFileName); //canExecute()
-            File dataFile = new File(
-                    "C:\\Users\\emile\\Desktop\\School\\Sept 2021\\CPSC 300-3 Software Engineering\\Assignment\\1\\code\\src\\");
+            //File dataFile = new File("C:\\Users\\DELL\\Javaidk\\AssignmentsBoyzz\\src\\data1.txt");
+            URL url = Main.class.getResource("data1.txt");
+            File dataFile = new File(url.getPath());
             if (dataFile.canRead()) {
                 fileInput = new Scanner(dataFile);
                 filework =true;
