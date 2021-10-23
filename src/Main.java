@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+/*
+the class takes the input from the text file that we have created
 
+ */
 public class Main {
     public static void main(String[] args)throws FileNotFoundException {
         Scanner inputReader = new Scanner(System.in);
