@@ -6,7 +6,6 @@ public abstract class Event {
 
     protected Event(){
         creationTime = Clock.getTime();
-        startTime = 0;
     }
 
     protected void start() {
