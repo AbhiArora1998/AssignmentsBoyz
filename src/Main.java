@@ -16,7 +16,7 @@ public class Main {
             String dataFileName = inputReader.nextLine();
             //File dataFile = new File(dataFileName);
             System.out.println(dataFileName); //canExecute()
-            //File dataFile = new File("C:\\Users\\DELL\\Javaidk\\AssignmentsBoyzz\\src\\data1.txt");
+
             URL url = Main.class.getResource("data1.txt");
             File dataFile = new File(url.getPath());
             if (dataFile.canRead()) {

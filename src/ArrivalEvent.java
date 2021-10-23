@@ -23,9 +23,4 @@ public class ArrivalEvent extends Event{
     public void priorityCheck(Patient patient){
         patient.getPriority();
     }
-
-    @Override
-    public void departure(Patient patient) {
-           assessmentQueue.remove(patient);
-    }
 }
