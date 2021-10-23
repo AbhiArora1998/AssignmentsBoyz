@@ -1,6 +1,6 @@
 /**
  * This file is part of a solution to
- *		CPSC300 Assigment 1 Problem 1 Fall 2021
+ *		CPSC300 Assignment 1 Problem 1 Fall 2021
  *
  * Implements the line for walk-in patients to wait to be assessed for priority level, as well as the queue for
  * patients with priority 1 who are finished treatment and waiting to be admitted to the hospital
