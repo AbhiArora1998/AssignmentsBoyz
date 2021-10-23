@@ -1,6 +1,6 @@
 /**
  * This file is part of a solution to
- *		CPSC300 Assigment 1 Problem 1 Fall 2021
+ *		CPSC300 Assignment 1 Problem 1 Fall 2021
  *
  * Implements the line for patients to wait to be treated in order of priority level
  *
