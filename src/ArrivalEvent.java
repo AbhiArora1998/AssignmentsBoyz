@@ -6,7 +6,7 @@ public class ArrivalEvent extends Event{
     private final char code;
     private final int treatmentTime;
     private Patient patient;
-
+    private AssessmentQueue assessmentQueue;
     private final Random random = new Random(1000);
 
     public ArrivalEvent(int time, char code, int treatmentTime) {
@@ -24,5 +24,8 @@ public class ArrivalEvent extends Event{
         patient.getPriority();
     }
 
-
+    @Override
+    public void departure(Patient patient) {
+           assessmentQueue.remove(patient);
+    }
 }

@@ -41,7 +41,7 @@ public class AssessmentQueue {
      * returns null.
      * @return head The current head attribute of AssessmentQueue at the time this method is called
      */
-    public Patient remove() {
+    public Patient remove(Patient patient) {
         if (head == null) {
             return null;
         } else if (head.getNext() == null) {
