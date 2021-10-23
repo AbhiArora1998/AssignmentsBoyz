@@ -13,14 +13,13 @@ public class Main {
             String dataFileName = inputReader.nextLine();
             //File dataFile = new File(dataFileName);
             System.out.println(dataFileName); //canExecute()
-            URL url =Main.class.getResource(dataFileName);
-            File dataFile = new File(url.getPath());
-            fileInput = new Scanner(dataFile);
-            filework =true;
-           /* if (dataFile.canRead()) {
+            URL url = Main.class.getResource("data1.txt");
+            File dataFile = new File(url.getPath()); //url.getPath()
+            System.out.println(url.getPath());
+            if (dataFile.canRead()) {
                 fileInput = new Scanner(dataFile);
                 filework =true;
-            } else System.out.println("ERROR INVAILD INPUT FILE"); */
+            } else System.out.println("ERROR INVAILD INPUT FILE");
         }
         while (fileInput.hasNext()) {
             char patientType = ' ';
