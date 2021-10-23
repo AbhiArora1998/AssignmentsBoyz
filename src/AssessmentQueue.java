@@ -1,9 +1,59 @@
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assigment 1 Problem 1 Fall 2021
+ *
+ * Implements the line for walk-in patients to wait to be assessed for priority level
+ *
+ * @author Noah Stobbe
+ * Student Number: 230140171
+ * @version 1
+ */
+
 import java.util.ArrayList;
 
 public class AssessmentQueue {
+    private AssessmentNode head;
+
     public AssessmentQueue() {}
+
+    /**
+     * Adds a patient to the back of the assessment line
+     * @param patient The patient to join the line
+     * @return none
+     */
     public void add(Patient patient) {
+        if (head == null) {
+            head = new AssessmentNode(patient);
+        } else {
+            AssessmentNode temp = head;
+            // Set temp to the last patient in the assessment line
+            while (temp != null) {
+                temp = temp.getNext();
+            }
+            // Put new patient after last patient in line for assessment
+            temp.setNext(new AssessmentNode(patient));
+        }
         AssessmentNode newNode = new AssessmentNode(patient);
-        
+    }
+
+    /**
+     * Removes the patient at the front of the assessment line and returns the patient. If there exists no such line,
+     * returns null.
+     * @return head The current head attribute of AssessmentQueue at the time this method is called
+     */
+    public Patient remove() {
+        if (head == null) {
+            return null;
+        } else if (head.getNext() == null) {
+            AssessmentNode temp = head;
+            head = null;
+            return temp.getPatient();
+        } else {
+            // Store the person at the front of the line separately as they are leaving the line
+            AssessmentNode temp = head;
+            // Second person in line becomes first
+            head = head.getNext();
+            return temp.getPatient();
+        }
     }
 }
