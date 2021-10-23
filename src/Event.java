@@ -1,7 +1,15 @@
 public abstract class Event {
 
     protected int processingTime;
-    public abstract void happens();
-    public abstract void departure(Patient patient);
+    protected boolean done = false;
 
+    public abstract void happens();
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
 }

@@ -3,29 +3,23 @@ import java.util.Random;
 public class ArrivalEvent extends Event{
 
     private final int arrivalTime;
-    private final char code;
+    private final char patientType;
     private final int treatmentTime;
-    private Patient patient;
     private AssessmentQueue assessmentQueue;
     private final Random random = new Random(1000);
 
-    public ArrivalEvent(int arrivalTime, char code, int treatmentTime) {
+    public ArrivalEvent(int arrivalTime, char patientType, int treatmentTime) {
         this.arrivalTime = arrivalTime;
-        this.code = code;
+        this.patientType = patientType;
         this.treatmentTime = treatmentTime;
+
+        happens();
+
+        done = true;
     }
 
     @Override
     public void happens() {
-        new Patient(arrivalTime, code, treatmentTime);
-    }
-
-    public void priorityCheck(Patient patient){
-        patient.getPriority();
-    }
-
-    @Override
-    public void departure(Patient patient) {
-           assessmentQueue.remove(patient);
+         new Patient(arrivalTime, patientType, treatmentTime);
     }
 }

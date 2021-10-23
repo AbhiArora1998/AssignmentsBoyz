@@ -98,4 +98,12 @@ public class Patient {
     public void setArrivalTime(int arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
+
+    public int getTreatmentTime() {
+        return treatmentTime;
+    }
+
+    public void setTreatmentTime(int treatmentTime) {
+        this.treatmentTime = treatmentTime;
+    }
 }
