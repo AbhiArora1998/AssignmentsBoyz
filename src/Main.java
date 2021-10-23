@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args)throws FileNotFoundException {
+        char patientType = 0;
+        int timeOfPatient = 0;
+
+
         Scanner inputReader = new Scanner(System.in);
         boolean filework = false;
         Scanner fileInput = new Scanner(System.in);
@@ -16,9 +20,8 @@ public class Main {
                 filework =true;
             }
         }
-            int patientStartNum = 28064212;
-            char patientType = ' ';
-            int timeOfPatient = 0;
+
+
             String patientString = fileInput.nextLine();
 
             System.out.println("Simulation begins... ");

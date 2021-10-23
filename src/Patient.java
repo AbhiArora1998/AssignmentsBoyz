@@ -28,6 +28,7 @@ public class Patient {
     private char type = 0; //Type of patient (Walk-in or Emergency)
     private int priority = 0;
     private int treatmentTime = 0;
+    private int arrivalTime = 0; //When did the patient arrived
     private static Random random = new Random(1000);
 
     /**
@@ -37,7 +38,8 @@ public class Patient {
      * @param treatmentTime How long will the treatment for this patient take
      * @param priority How urgent it is to treat the patient
      */
-    public Patient(char type, int treatmentTime, int priority) {
+    public Patient(char type, int treatmentTime, int arrivalTime, int priority) {
+        this.arrivalTime = arrivalTime;
         this.type = type;
         this.patientNumber = nextPatientNumber++;
         this.treatmentTime = treatmentTime;
@@ -57,7 +59,8 @@ public class Patient {
      * @param type Type of patient (Walk-in [w] or Emergency [E])
      * @param treatmentTime How long will the treatment for this patient take
      */
-    public Patient(char type, int treatmentTime) {
+    public Patient(char type, int treatmentTime, int arrivalTime) {
+        this.arrivalTime = arrivalTime;
         this.type = type;
         this.patientNumber = nextPatientNumber++;
         this.treatmentTime = treatmentTime;
@@ -86,5 +89,13 @@ public class Patient {
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public int getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(int arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 }
