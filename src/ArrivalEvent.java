@@ -1,11 +1,8 @@
-import java.util.Random;
-
 public class ArrivalEvent extends Event{
 
     private final char patientType;
     private final int treatmentTime;
-    private AssessmentQueue assessmentQueue;
-    private final Random random = new Random(1000);
+    private Patient patient;
 
     public ArrivalEvent(char patientType, int treatmentTime) {
         super();
@@ -25,12 +22,16 @@ public class ArrivalEvent extends Event{
 
     public void start(int priority){
         super.start();
-        new Patient(creationTime, patientType, treatmentTime, priority);
+        patient = new Patient(creationTime, patientType, treatmentTime, priority);
     }
 
     @Override
     public void start() {
         super.start();
         new Patient(creationTime, patientType, treatmentTime);
+    }
+
+    public Patient getPatient() {
+        return patient;
     }
 }
