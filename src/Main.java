@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args)throws FileNotFoundException {
         Scanner inputReader = new Scanner(System.in);
         boolean filework = false;
-        Scanner fileInput = new Scanner(System.in); //needs to be set so java is happy
+        Scanner fileInput = new Scanner(System.in); //needs to be set so javaa is happy
         while (!(filework)) {
             System.out.println("Please enter input file name: ");
             String dataFileName = inputReader.nextLine();
