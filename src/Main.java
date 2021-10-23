@@ -1,10 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-/*
-the class takes the input from the text file that we have created
+import java.net.URL;
 
- */
 public class Main {
     public static void main(String[] args)throws FileNotFoundException {
         Scanner inputReader = new Scanner(System.in);
@@ -15,12 +13,14 @@ public class Main {
             String dataFileName = inputReader.nextLine();
             //File dataFile = new File(dataFileName);
             System.out.println(dataFileName); //canExecute()
-            File dataFile = new File(
-                    "C:\\Users\\emile\\Desktop\\School\\Sept 2021\\CPSC 300-3 Software Engineering\\Assignment\\1\\code\\src\\");
-            if (dataFile.canRead()) {
+            URL url =Main.class.getResource(dataFileName);
+            File dataFile = new File(url.getPath());
+            fileInput = new Scanner(dataFile);
+            filework =true;
+           /* if (dataFile.canRead()) {
                 fileInput = new Scanner(dataFile);
                 filework =true;
-            } else System.out.println("ERROR INVAILD INPUT FILE");
+            } else System.out.println("ERROR INVAILD INPUT FILE"); */
         }
         while (fileInput.hasNext()) {
             char patientType = ' ';
