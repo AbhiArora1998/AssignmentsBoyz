@@ -106,4 +106,15 @@ public class Patient {
     public void setTreatmentTime(int treatmentTime) {
         this.treatmentTime = treatmentTime;
     }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "patientNumber=" + patientNumber +
+                ", type=" + type +
+                ", priority=" + priority +
+                ", treatmentTime=" + treatmentTime +
+                ", arrivalTime=" + arrivalTime +
+                '}';
+    }
 }

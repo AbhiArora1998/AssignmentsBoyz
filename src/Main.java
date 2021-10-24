@@ -1,8 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Scanner;
 /*
 the class takes the input from the text file that we have created
@@ -28,43 +27,42 @@ public class Main {
         String patientString = fileInput.nextLine();
         String [] linebreakdownArray = patientString.split(" ",3);
         int timeOfPatient = Integer.parseInt(linebreakdownArray[0]);
+        System.out.println(timeOfPatient);
         char patientType = linebreakdownArray[1].charAt(0);
-        int durationOfPatient =Integer.parseInt(linebreakdownArray[2]);
-        int time = 0;
-        while ((time < 1000)&&(fileInput.hasNext())) {
+        int processingTime =Integer.parseInt(linebreakdownArray[2]);
 
-            while (time == timeOfPatient){
+        ArrayList<Character> patientTypeArray = new ArrayList<>();
+        ArrayList<Integer> processingTimeArray = new ArrayList<>();
+
+        if(timeOfPatient == Clock.getTime()){
+            patientTypeArray.add(patientType);
+            processingTimeArray.add(processingTime);
+
+            Simulation.doOneClockCycle(patientTypeArray, processingTimeArray);
+        }
+        Clock.advanceClock();
+
+
+        while (fileInput.hasNext()) {
+            System.out.println(Clock.getTime());
+            patientTypeArray = new ArrayList<>();
+            processingTimeArray = new ArrayList<>();
+
+            while (Clock.getTime() == timeOfPatient){
 
                 patientString = fileInput.nextLine();
                 linebreakdownArray = patientString.split(" ",3);
                 timeOfPatient = Integer.parseInt(linebreakdownArray[0]);
                 patientType = linebreakdownArray[1].charAt(0);
-                durationOfPatient =Integer.parseInt(linebreakdownArray[2]);
+                processingTime =Integer.parseInt(linebreakdownArray[2]);
+
+                patientTypeArray.add(patientType);
+                processingTimeArray.add(processingTime);
             }
-            time++;
+
+            Simulation.doOneClockCycle(patientTypeArray, processingTimeArray);
+
+            Clock.advanceClock();
         }
     }
-    /*
-    public static void getValidConsonant(String patientString)
-    {
-        while (in.hasNextLine())
-        {
-            String consonantStr = in.nextLine();
-            if (isConsonantDec(consonantStr)&&(numOfConsonant(consonantStr)>=consonantNum))
-                out.println(consonantStr);
-        }*/
-    //File dataFile = new File(dataFileName);
-    //canExecute()
-    //URL url = Main.class.getResource("data1.txt");
-    //System.out.println(url.getPath());
-    //Path path = Path.of(url.getPath());
-    //File dataFile = new File(url.getPath());
-    //System.out.println(path);
-    //File dataFile = new File("C:\\Users\\emile\\Desktop\\School\\Sept 2021\\CPSC 300-3 Software Engineering\\Assignment\\1\\code\\src\\data1.txt");
-    //System.out.println(dataFile2.getAbsolutePath());
-    //File dataFile = new File("data1.txt");
-    /*for(String str :  returnedArray2){
-                timeOfPatient = Integer.parseInt(str);
-                System.out.println(" Output2 : "+str);
-            } */
 }

@@ -81,4 +81,19 @@ public class WaitingQueue {
             return temp.getPatient();
         }
     }
+
+    @Override
+    public String toString() {
+        if(head != null) {
+            PatientNode tmp = head;
+            String string = tmp.getPatient().toString();
+            while (tmp.getNext() != null) {
+                string += tmp.getNext().getPatient().toString();
+                string += "  ";
+                tmp = tmp.getNext();
+            }
+            return string;
+        }
+        return null;
+    }
 }

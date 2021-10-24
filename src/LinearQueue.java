@@ -26,7 +26,7 @@ public class LinearQueue {
         } else {
             PatientNode temp = head;
             // Set temp to the last patient in the assessment line
-            while (temp != null) {
+            while (temp.getNext() != null) {
                 temp = temp.getNext();
             }
             // Put new patient after last patient in line for assessment

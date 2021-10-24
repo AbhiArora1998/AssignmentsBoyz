@@ -37,7 +37,7 @@ public class ArrivalEvent extends Event{
     @Override
     public void start() {
         super.start();
-        new Patient(creationTime, patientType, treatmentTime);
+        patient = new Patient(creationTime, patientType, treatmentTime);
     }
 
     public Patient getPatient() {
