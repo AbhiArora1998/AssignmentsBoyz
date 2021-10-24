@@ -1,3 +1,7 @@
+package queues;
+
+import simulation.Patient;
+
 public class TreatmentRoom {
     private Patient currentPatient;
 

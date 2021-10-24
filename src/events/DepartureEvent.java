@@ -1,3 +1,7 @@
+package events;
+
+import simulation.Patient;
+
 /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -5,7 +9,7 @@
  * This event occurs when patients depart from the hospital
  *
  * @author Sebastian Lopez
- * Student Number:
+ * Student Number: 230141246
  * @version 1
  */
 

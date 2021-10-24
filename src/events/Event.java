@@ -1,3 +1,7 @@
+package events;
+
+import static simulation.Clock.getCurrentClockTime;
+
 public abstract class Event {
 
     protected int processingTime;
@@ -5,14 +9,14 @@ public abstract class Event {
     protected int startTime;
 
     protected Event(){
-        creationTime = Clock.getTime();
+        creationTime = getCurrentClockTime();
     }
 
     protected void start() {
-        startTime = Clock.getTime();
+        startTime = getCurrentClockTime();
     }
 
     public boolean isDone(){
-        return (Clock.getTime() - startTime) >= processingTime;
+        return (getCurrentClockTime() - startTime) >= processingTime;
     }
 }

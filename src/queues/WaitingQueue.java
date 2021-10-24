@@ -1,3 +1,7 @@
+package queues;
+
+import simulation.Patient;
+
 /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -64,7 +68,7 @@ public class WaitingQueue {
     /**
      * Removes the patient at the front of the waiting line and returns the patient. If there exists no such line,
      * returns null.
-     * @return head The current head attribute of WaitingQueue at the time this method is called
+     * @return head The current head attribute of queues.WaitingQueue at the time this method is called
      */
     public Patient remove() {
         if (head == null) {
@@ -86,14 +90,20 @@ public class WaitingQueue {
     public String toString() {
         if(head != null) {
             PatientNode tmp = head;
-            String string = tmp.getPatient().toString();
+            String string = "Waiting Queue (for treatment): \n ";
+            string += tmp.getPatient().toString();
             while (tmp.getNext() != null) {
+                string += "\n  ";
                 string += tmp.getNext().getPatient().toString();
-                string += "  ";
                 tmp = tmp.getNext();
             }
             return string;
         }
         return null;
     }
+
+    public boolean isEmpty(){
+        return head == null;
+    }
+
 }

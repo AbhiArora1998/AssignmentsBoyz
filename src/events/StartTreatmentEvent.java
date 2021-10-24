@@ -1,4 +1,8 @@
-public class StartTreatmentEvent extends Event{
+package events;
+
+import simulation.Patient;
+
+public class StartTreatmentEvent extends Event {
 
     public StartTreatmentEvent(Patient patient) {
         super();

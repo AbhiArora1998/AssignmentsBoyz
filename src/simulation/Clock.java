@@ -1,3 +1,5 @@
+package simulation;
+
 public final class Clock {
     private static int time =0;
 
@@ -9,7 +11,7 @@ public final class Clock {
         time++;
     }
 
-    public static int getTime(){
+    public static int getCurrentClockTime(){
         return time;
     }
 }

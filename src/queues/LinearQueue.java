@@ -1,3 +1,7 @@
+package queues;
+
+import simulation.Patient;
+
 /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -54,5 +58,48 @@ public class LinearQueue {
             head = head.getNext();
             return temp.getPatient();
         }
+    }
+
+    @Override
+    public String toString() {
+        if(head != null) {
+            PatientNode tmp = head;
+            String string = "Linear Queue (assessment): \n  ";
+            string += tmp.getPatient().toString();
+            while (tmp.getNext() != null) {
+                string += "\n  ";
+                string += tmp.getNext().getPatient().toString();
+                tmp = tmp.getNext();
+            }
+            return string;
+        }
+        return null;
+    }
+
+    public boolean isEmpty(){
+        return head == null;
+    }
+
+    public PatientNode getHead() {
+        return head;
+    }
+
+    public int size(){
+        int count = 0;
+        PatientNode tmp = head;
+        while(tmp != null){
+            tmp = tmp.getNext();
+            count++;
+        }
+        return count;
+    }
+
+    public Patient get(int i){
+        PatientNode tmp = head;
+        while(i > 0){
+            tmp = tmp.getNext();
+            i--;
+        }
+        return tmp.getPatient();
     }
 }

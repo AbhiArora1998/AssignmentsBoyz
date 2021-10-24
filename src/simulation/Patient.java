@@ -1,4 +1,4 @@
-/**
+package simulation; /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Fall 2021
  *
@@ -17,18 +17,19 @@ it then stores the person into the ArrayList
  */
 public class Patient {
 
-    public static final char CODE_MISSING = 0, CODE_W = 'W', CODE_E = 'E';
-    public static final int PRIORITY_MISSING = 0;
+    public static final char CODE_W = 'W', CODE_E = 'E';
     public static final int HIGHEST_PRIORITY = 1;
 
     private static int nextPatientNumber = 28064212;
     public static ArrayList<Patient> patients = new ArrayList<>();
 
-    private int patientNumber = 0;
-    private char type = 0; //Type of patient (Walk-in or Emergency)
+    private final int patientNumber;
+    private final char type; //Type of patient (Walk-in or Emergency)
     private int priority = 0;
-    private int treatmentTime = 0;
-    private int arrivalTime = 0; //When did the patient arrived
+    private int treatmentTime;
+    private int arrivalTime; //When did the patient arrived
+    private int waitingTime;
+    private int assessmentTime;
     private static Random random = new Random(1000);
 
     /**
@@ -43,6 +44,7 @@ public class Patient {
         this.type = type;
         this.patientNumber = nextPatientNumber++;
         this.treatmentTime = treatmentTime;
+        waitingTime = 0;
 
         //If the patient arrived in an emergency, make them top priority
         if(type == CODE_E){
@@ -109,12 +111,28 @@ public class Patient {
 
     @Override
     public String toString() {
-        return "Patient{" +
+        return "simulation.Patient{" +
                 "patientNumber=" + patientNumber +
                 ", type=" + type +
                 ", priority=" + priority +
                 ", treatmentTime=" + treatmentTime +
                 ", arrivalTime=" + arrivalTime +
                 '}';
+    }
+
+    public void increaseWaitingTime(){
+        waitingTime++;
+    }
+
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
+    public int getAssessmentTime() {
+        return assessmentTime;
+    }
+
+    public void setAssessmentTime(int assessmentTime) {
+        this.assessmentTime = assessmentTime;
     }
 }
