@@ -29,31 +29,30 @@ public class WaitingQueue {
         if (head == null) {
             head = newPatientNode;
         }
-        // If the head has losing priority
         else if (head.getPatient().getPriority() > newPatientNode.getPatient().getPriority()) {
+            // If the head has losing priority
             newPatientNode.setNext(head);
             head = newPatientNode;
         }
-        // If the head has the same priority
-        else if (head.getPatient().getPriority() == newPatientNode.getPatient().getPriority()) {
-            // If the head has been in line for less time
-            if (head.getPatient().getPatientNumber() > newPatientNode.getPatient().getPatientNumber()) {
-                newPatientNode.setNext(head);
-                head = newPatientNode;
-            }
+        else if ((head.getPatient().getPriority() == newPatientNode.getPatient().getPriority()
+                && (head.getPatient().getPatientNumber() > newPatientNode.getPatient().getPatientNumber()))) {
+            // If the head has the same priority and the head has been in line for less time
+            newPatientNode.setNext(head);
+            head = newPatientNode;
         }
-        // If the head has winning priority or patient number and is the only patient in line
         else if(head.getNext() == null) {
+            // If the head has winning priority or patient number and is the only patient in line
             head.setNext(newPatientNode);
         }
-        // If we need to trace further down the line until we find a priority that loses
         else {
+            // If we need to trace further down the line until we find a priority that loses
             PatientNode temp = head;
-            while((temp.getNext().getPatient().getPriority() <= newPatientNode.getPatient().getPriority())
-                || (temp.getNext().getPatient().getPatientNumber() < newPatientNode.getPatient().getPatientNumber())) {
+            while(temp.getNext().getPatient().getPriority() < newPatientNode.getPatient().getPriority()
+                    || (temp.getNext().getPatient().getPriority() == newPatientNode.getPatient().getPriority()
+                    && temp.getNext().getPatient().getPatientNumber() < newPatientNode.getPatient().getPatientNumber())) {
                 temp = temp.getNext();
-                // If we reach the end of the line (because all other patients have more priority)
                 if (temp.getNext() == null) {
+                    // If we reach the end of the line (because all other patients have more priority)
                     temp.setNext(newPatientNode);
                     return;
                 }
