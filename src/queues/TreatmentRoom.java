@@ -20,6 +20,10 @@ public class TreatmentRoom {
         this.roomIsFree2 = true;
         this.roomIsFree3 = true;
 
+         this.patient1IsDone= true;
+       this.patient2IsDone=true;
+         this.patient3IsDone=true;
+
     }
 
     public void enterTreatmentRoom(Patient patient){
@@ -92,6 +96,10 @@ public class TreatmentRoom {
         patients[2] = null;
         this.roomIsFree3 = true;
         return temp;
+    }
+
+    public Patient[] getPatients() {
+        return patients;
     }
 
     public void waitingQueueRemove(){
