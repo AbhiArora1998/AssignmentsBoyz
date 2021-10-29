@@ -12,6 +12,7 @@ public class TreatmentRoom {
     private boolean patient1IsDone;
     private boolean patient2IsDone;
     private boolean patient3IsDone;
+    private boolean[] patientIsDone = {false,false,false};
 
 
     public TreatmentRoom(){
@@ -77,6 +78,14 @@ public class TreatmentRoom {
         this.patient3IsDone = patient3IsDone;
     }
 
+    public void setPatientIsDone(int patientNum, boolean patient3IsDone) {
+        this.patientIsDone[patientNum] = patientIsDone[patientNum];
+    }
+
+    public boolean getPatientIsDone(int patientNum) {
+        return patientIsDone[patientNum];
+    }
+
     public Patient setRoomIsFree1() {
         Patient temp = patients[0];
         patients[0] = null;
@@ -94,6 +103,12 @@ public class TreatmentRoom {
     public Patient setRoomIsFree3() {
         Patient temp = patients[2];
         patients[2] = null;
+        this.roomIsFree3 = true;
+        return temp;
+    }
+    public Patient setRoomIsFree(int room) {
+        Patient temp = patients[room];
+        patients[room] = null;
         this.roomIsFree3 = true;
         return temp;
     }

@@ -16,14 +16,22 @@ import simulation.Patient;
 public class DepartureEvent extends Event {
 
     private static final int DEPARTURE_PROCESSING_TIME = 1;
+    private Patient patient;
 
     public DepartureEvent(Patient patient) {
         super();
         processingTime = DEPARTURE_PROCESSING_TIME;
+        this.patient = patient;
     }
 
     @Override
     public void start() {
         super.start();
+    }
+
+    @Override
+    public String toString() {
+            return "Time " + (startTime + processingTime) + ":  " + patient.getPatientNumber()
+                    + " (Priority " + patient.getPriority() +") departs (" + "MISSING TREATMENT ROOM NUMBER AVAILABLE" + " room still available";
     }
 }
