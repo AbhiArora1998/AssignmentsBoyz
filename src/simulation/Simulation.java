@@ -3,6 +3,7 @@ package simulation;
 import events.AdmittingToHospital;
 import events.ArrivalEvent;
 import events.AssessmentEvent;
+import events.StartTreatmentEvent;
 import queues.LinearQueue;
 import queues.TreatmentRoom;
 import queues.WaitingQueue;
@@ -16,11 +17,13 @@ public final class Simulation {
     //TODO: change queues to hold events instead of patients? Maybe
     private static final LinearQueue assessmentQueue = new LinearQueue();
     private static final WaitingQueue waitingQueue = new WaitingQueue();
-    private static TreatmentRoom[] treatmentRooms = new TreatmentRoom[NUMBER_OF_TREATMENT_ROOMS];
+
     ; //TODO: treatment rooms taking care of themselves.
     private static AssessmentEvent currentAssessmentEvent;
     private static AssessmentEvent currentAdmittingToHospitalEvent;
     private static boolean admissionNurseAvailable = true;
+    public static  TreatmentRoom treatmentRoom = new TreatmentRoom();
+   private static StartTreatmentEvent[] currentStartTreatmentEvent = new StartTreatmentEvent[3];
 
     private Simulation() {
         /* empty */
@@ -42,6 +45,7 @@ public final class Simulation {
         handleArrivalEvents(patientType, processingTime);
 
         handleAssessmentEvents();
+        handleStartTreatmentEvents();
         handleAdmittingToHospitalEvents();
     }
 
@@ -64,6 +68,29 @@ public final class Simulation {
             assessmentQueue.get(i).increaseWaitingTime();
         }
     }
+
+    private static void handleStartTreatmentEvents() {
+        //Assess 1 patient in queue if no patient is being assessed currently.
+        if (treatmentRoom.roomCheck() != 0 && !waitingQueue.isEmpty()) {
+            //print result if patient is done and add them to waiting queue
+
+            currentStartTreatmentEvent[treatmentRoom.roomCheck()-1] = new StartTreatmentEvent(waitingQueue.remove());
+            currentStartTreatmentEvent[treatmentRoom.roomCheck()-1].start();
+
+            for (StartTreatmentEvent starTreamentEvent: currentStartTreatmentEvent) {
+                if(starTreamentEvent != null && starTreamentEvent.isDone()){
+                    System.out.println(starTreamentEvent.toString());
+                }
+            }
+
+        }
+
+        //Increase waiting time for everyone that is not being assessed. (i = 0 is currently being assessed so skip it)
+        for (int i = 1; i < assessmentQueue.size(); i++) {
+            assessmentQueue.get(i).increaseWaitingTime();
+        }
+    }
+
 
 
     private static void handleAdmittingToHospitalEvents() {
