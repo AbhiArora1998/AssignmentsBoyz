@@ -1,5 +1,6 @@
 package simulation;
 
+import events.AdmittingToHospital;
 import events.ArrivalEvent;
 import events.AssessmentEvent;
 import queues.LinearQueue;
@@ -18,6 +19,8 @@ public final class Simulation {
     private static TreatmentRoom[] treatmentRooms = new TreatmentRoom[NUMBER_OF_TREATMENT_ROOMS];
     ; //TODO: treatment rooms taking care of themselves.
     private static AssessmentEvent currentAssessmentEvent;
+    private static AssessmentEvent currentAdmittingToHospitalEvent;
+    private static boolean admissionNurseAvailable = true;
 
     private Simulation() {
         /* empty */
@@ -39,6 +42,7 @@ public final class Simulation {
         handleArrivalEvents(patientType, processingTime);
 
         handleAssessmentEvents();
+        handleAdmittingToHospitalEvents();
     }
 
     private static void handleAssessmentEvents() {
@@ -55,10 +59,33 @@ public final class Simulation {
                 currentAssessmentEvent.start();
             }
         }
-
-        //Increase waiting time for everyone that is not being assessed. (i = 0 is currently being assessed so skip it)
+        //Increase waiting time for everyone that is treated and waiting to be admitted. (i = 0 is currently being assessed so skip it)
         for (int i = 1; i < assessmentQueue.size(); i++) {
             assessmentQueue.get(i).increaseWaitingTime();
+        }
+    }
+
+
+    private static void handleAdmittingToHospitalEvents() {
+        //Assess 1 patient in queue if no patient is being assessed currently.                   line under should be treatments rooms
+        if ((currentAdmittingToHospitalEvent == null || currentAdmittingToHospitalEvent.isDone()) && !assessmentQueue.isEmpty()) {
+            //print result if patient is done and add them to waiting queue
+            if(currentAdmittingToHospitalEvent != null && currentAdmittingToHospitalEvent.isDone()){
+                System.out.println(currentAdmittingToHospitalEvent);
+                admissionNurseAvailable = true;
+                //opens treatment room
+                //patient priority 1 departs
+            } //line under here changed to treatment rooms
+            if(!assessmentQueue.isEmpty() && admissionNurseAvailable){ //should be treatment rooms
+                admissionNurseAvailable = false;
+                //currentAdmittingToHospitalEvent = new AdmittingToHospital() gets patient waiting in treatment room
+                //currentAdmittingToHospitalEvent.start();
+            }
+        }
+        //Increase waiting time for everyone that is not being assessed. (i = 0 is currently being assessed so skip it)
+        //needs to be changed from assesmentqueue to treatment rooms patients
+        for (int i = 1; i < assessmentQueue.size(); i++) {
+            if (assessmentQueue.get(i).getPriority() == 1) {assessmentQueue.get(i).increaseWaitingTime();}
         }
     }
 

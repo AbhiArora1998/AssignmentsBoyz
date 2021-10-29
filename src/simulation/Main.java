@@ -28,7 +28,7 @@ public class Main {
                 filework = true;
             } else System.out.println("ERROR INVAILD INPUT FILE");
         }
-        System.out.println("simulation.Simulation begins... :");
+        System.out.println("Simulation begins...");
 
         String patientString = fileInput.nextLine();
         String[] linebreakdownArray = patientString.split(" ", 3);// splits the string whenever space  is provided

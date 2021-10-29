@@ -29,6 +29,7 @@ public class Patient {
     private int treatmentTime;
     private int arrivalTime; //When did the patient arrived
     private int waitingTime;
+    private int admittingToHospitalTime;
     private int assessmentTime;
     private static Random random = new Random(1000);
 
@@ -133,6 +134,10 @@ public class Patient {
     }
 
     public void setAssessmentTime(int assessmentTime) {
+        this.assessmentTime = assessmentTime;
+    }
+
+    public void setAdmittingToHospitalTime(int assessmentTime) {
         this.assessmentTime = assessmentTime;
     }
 }
