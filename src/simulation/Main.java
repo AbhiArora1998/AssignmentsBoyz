@@ -19,6 +19,10 @@ public class Main {
             String dataFileName = inputReader.nextLine(); //get file name
             File dataFile = new File(dataFileName);
             //System.out.println(dataFile.getAbsolutePath()); //file location
+            /*
+            checks to see if the file exists and readable then
+            save the input in the fileInput
+             */
             if (dataFile.canRead()) {
                 fileInput = new Scanner(dataFile);
                 filework = true;
@@ -27,7 +31,7 @@ public class Main {
         System.out.println("simulation.Simulation begins... :");
 
         String patientString = fileInput.nextLine();
-        String[] linebreakdownArray = patientString.split(" ", 3);
+        String[] linebreakdownArray = patientString.split(" ", 3);// splits the string whenever space  is provided
         int arrivalTime = Integer.parseInt(linebreakdownArray[0]);
         char patientType;
         int processingTime;
@@ -60,7 +64,7 @@ public class Main {
             //End Debug
 
             while (Clock.getCurrentClockTime() == arrivalTime && scanFile) {
-                if(!fileInput.hasNextLine()){
+                if(!fileInput.hasNextLine()){// if the next line does not exit then it stops reading the textFile
                     scanFile = false;
                 }
 

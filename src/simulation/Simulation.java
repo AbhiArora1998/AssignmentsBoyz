@@ -30,7 +30,10 @@ public final class Simulation {
     public static WaitingQueue getWaitingQueue() {
         return waitingQueue;
     }
-
+    /*
+    This method is called to enter the information of the patient and the processing time.
+    It then calls handlerArrivalEvent to accommodate the patient accordingly
+     */
     public static void doOneClockCycle(ArrayList<Character> patientType, ArrayList<Integer> processingTime) {
 
         handleArrivalEvents(patientType, processingTime);

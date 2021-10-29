@@ -19,6 +19,9 @@ public class ArrivalEvent extends Event {
         this.treatmentTime = treatmentTime;
 
         start();
+        /*
+        Checks to see if the patient type is E
+         */
         if(patientType == Patient.CODE_E){
             patient.setAssessmentTime(startTime);
         }
