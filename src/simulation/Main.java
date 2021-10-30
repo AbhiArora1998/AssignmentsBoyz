@@ -50,7 +50,7 @@ public class Main {
 //            }
 
             //TODO: replace following if-statement with above once waitingQueue and treatmentEvents work
-            if (Simulation.getAssessmentQueue().isEmpty() &&
+            if (Simulation.assessmentQueue.isEmpty() &&
                     !scanFile){
                 run = false;
             }
@@ -109,7 +109,7 @@ public class Main {
                     patient.getArrivalTime(),
                     patient.getAssessmentTime(),
                     patient.getTreatmentTime(),
-                    "???",
+                    patient.getDepartureTime(),
                     patient.getWaitingTime());
             sum += patient.getWaitingTime();
         }

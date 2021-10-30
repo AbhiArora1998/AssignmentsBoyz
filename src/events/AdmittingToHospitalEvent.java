@@ -3,12 +3,12 @@ package events;
 import simulation.Patient;
 import simulation.Simulation;
 
-public class AdmittingToHospital extends Event {
+public class AdmittingToHospitalEvent extends Event {
 
     private static final int ADMITTING_PROCESSING_TIME = 3;
     private Patient patient;
 
-    public AdmittingToHospital(Patient patient) {
+    public AdmittingToHospitalEvent(Patient patient) {
         super();
         processingTime = ADMITTING_PROCESSING_TIME;
         this.patient = patient;
