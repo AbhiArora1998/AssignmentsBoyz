@@ -1,9 +1,16 @@
 package queues;
 
 import simulation.Patient;
-/*
-
-
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assignment 1 Problem 1 Fall 2021
+ *
+ * This event  occurs when people are waiting in the waiting room to get treated.
+ * This treatmentroom  class takes 3 people at a time  in a treatment room and treat them.
+ *
+ * @author Abhishek Arora
+ * Student Number: 230141945
+ * @version 1
  */
 public class TreatmentRoom {
     private Patient[] patients = new Patient[3];
@@ -18,6 +25,9 @@ public class TreatmentRoom {
     private boolean[] patientIsDone = {false,false,false};
 
 
+    /**
+     * This constructor set all the room to be free with no patient when initialised
+     */
     public TreatmentRoom() {
 
         this.roomIsFree1 = true;
@@ -29,7 +39,13 @@ public class TreatmentRoom {
         this.patient3IsDone = true;
 
     }
-
+    /**
+     * this method allow patient to enter the treatment room
+     * it checks if the rooms are empty
+     * if they are then it fills the patient in the room and mark that room as busy
+     * @param patient The patient to enter the treatment room
+     * @return none
+     */
     public void enterTreatmentRoom(Patient patient) {
         if (roomIsFree1) {
             patients[0] = patient;
@@ -47,7 +63,12 @@ public class TreatmentRoom {
             System.out.println("The rooms are busy please wait");
         }
     }
-
+    /**
+     * this method checks if the there is any patient already in the room
+     * before another person can leave the waiting room
+     *
+     * @return int value to tell which room is free
+     */
     public int roomCheck() {
         if (roomIsFree1) {
 
@@ -85,6 +106,11 @@ public class TreatmentRoom {
         this.patientIsDone[patientNum] = patientIsDone[patientNum];
     }
 
+    /**
+     * Adds a patient to the waiting line
+     *
+     * @return none
+     */
     public boolean getPatientIsDone(int patientNum) {
         return patientIsDone[patientNum];
     }
