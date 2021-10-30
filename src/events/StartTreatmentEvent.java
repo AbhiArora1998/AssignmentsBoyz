@@ -3,9 +3,11 @@ package events;
 import simulation.Patient;
 import simulation.Simulation;
 
+import static simulation.Simulation.treatmentRooms;
+
 public class StartTreatmentEvent extends Event {
 
-    Patient patient;
+    private Patient patient;
     public StartTreatmentEvent(Patient patient) {
         super();
         this.patient = patient;
@@ -15,7 +17,9 @@ public class StartTreatmentEvent extends Event {
     @Override
     public void start(){
         super.start();
-        Simulation.treatmentRoom.enterTreatmentRoom(patient);
+    }
 
+    public Patient getPatient() {
+        return patient;
     }
 }

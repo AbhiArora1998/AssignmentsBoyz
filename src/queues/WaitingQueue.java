@@ -114,4 +114,22 @@ public class WaitingQueue {
         return head == null;
     }
 
+    public int size(){
+        int count = 0;
+        PatientNode tmp = head;
+        while(tmp != null){
+            tmp = tmp.getNext();
+            count++;
+        }
+        return count;
+    }
+
+    public Patient get(int i){
+        PatientNode tmp = head;
+        while(i > 0){
+            tmp = tmp.getNext();
+            i--;
+        }
+        return tmp.getPatient();
+    }
 }

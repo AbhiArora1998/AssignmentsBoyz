@@ -1,4 +1,4 @@
-package simulation; /**
+/**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Fall 2021
  *
@@ -8,6 +8,7 @@ package simulation; /**
  * @version 1
  */
 
+package simulation;
 
 import java.util.ArrayList;
 import java.util.Random;
