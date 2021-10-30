@@ -1,9 +1,12 @@
 package queues;
 
 import simulation.Patient;
+/*
 
+
+ */
 public class TreatmentRoom {
-    private Patient[] patients = new Patient[3] ;
+    private Patient[] patients = new Patient[3];
     WaitingQueue waitingQueue;
 
     private boolean roomIsFree1;
@@ -15,54 +18,54 @@ public class TreatmentRoom {
     private boolean[] patientIsDone = {false,false,false};
 
 
-    public TreatmentRoom(){
+    public TreatmentRoom() {
 
         this.roomIsFree1 = true;
         this.roomIsFree2 = true;
         this.roomIsFree3 = true;
 
-         this.patient1IsDone= true;
-       this.patient2IsDone=true;
-         this.patient3IsDone=true;
+        this.patient1IsDone = true;
+        this.patient2IsDone = true;
+        this.patient3IsDone = true;
 
     }
 
-    public void enterTreatmentRoom(Patient patient){
-        if(roomIsFree1){
+    public void enterTreatmentRoom(Patient patient) {
+        if (roomIsFree1) {
             patients[0] = patient;
             patient1IsDone = false;
 
 
-        }else if(roomIsFree2){
+        } else if (roomIsFree2) {
 
             patients[1] = patient;
             patient2IsDone = false;
-        }else if(roomIsFree3){
+        } else if (roomIsFree3) {
             patients[2] = patient;
             patient3IsDone = false;
-        }else {
+        } else {
             System.out.println("The rooms are busy please wait");
         }
     }
 
-    public int roomCheck(){
-        if(roomIsFree1){
+    public int roomCheck() {
+        if (roomIsFree1) {
 
             return 1;
-        }else if(roomIsFree2){
+        } else if (roomIsFree2) {
 
             return 2;
 
-        }else if(roomIsFree3){
+        } else if (roomIsFree3) {
 
             return 3;
-        }else {
+        } else {
             System.out.println("The rooms are busy please wait");
         }
         return 0;
     }
 
-    public void patientTreated(Patient[] patients){
+    public void patientTreated(Patient[] patients) {
 
     }
 
@@ -94,7 +97,7 @@ public class TreatmentRoom {
     }
 
     public Patient setRoomIsFree2() {
-       Patient temp = patients[1];
+        Patient temp = patients[1];
         patients[1] = null;
         this.roomIsFree2 = true;
         return temp;
@@ -117,7 +120,7 @@ public class TreatmentRoom {
         return patients;
     }
 
-    public void waitingQueueRemove(){
+    public void waitingQueueRemove() {
         waitingQueue.remove();
     }
 }
