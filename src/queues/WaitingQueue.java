@@ -110,6 +110,10 @@ public class WaitingQueue {
         return null;
     }
 
+    /**
+     * Returns a boolean based upon whether the waiting line is missing its front Patient or not
+     * @return Is the front of the line null?
+     */
     public boolean isEmpty(){
         return head == null;
     }
