@@ -6,8 +6,7 @@ import simulation.Patient;
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
  *
- * Implements the line for walk-in patients to wait to be assessed for priority level, as well as the queue for
- * patients with priority 1 who are finished treatment and waiting to be admitted to the hospital
+ * Implements the line for walk-in patients to wait to be assessed for priority level
  *
  * @author Noah Stobbe
  * Student Number: 230140171
@@ -48,7 +47,9 @@ public class LinearQueue {
         if (head == null) {
             return null;
         } else if (head.getNext() == null) {
+            // Store the person at the front of the line separately as they are leaving the line
             PatientNode temp = head;
+            // Empty the line
             head = null;
             return temp.getPatient();
         } else {
@@ -60,6 +61,10 @@ public class LinearQueue {
         }
     }
 
+    /**
+     * Returns a summary of all the walk-in patients waiting to be assessed for priority
+     * @return string The attributes of each walk-in patient waiting for assessment
+     */
     @Override
     public String toString() {
         if(head != null) {
@@ -76,25 +81,43 @@ public class LinearQueue {
         return null;
     }
 
+    /**
+     * Returns a boolean based upon whether the assessment line is missing its front or not
+     * @return Is the front of the line null?
+     */
     public boolean isEmpty(){
         return head == null;
     }
 
+    /**
+     * Returns the Patient at the front of the assessment line
+     * @return head The Patient at the front of the assessment line
+     */
     public PatientNode getHead() {
         return head;
     }
 
+    /**
+     * Returns the number of patients waiting to be assessed
+     * @return Size of the LinearQueue
+     */
     public int size(){
         int count = 0;
         PatientNode tmp = head;
-        while(tmp != null){
+        while(tmp != null) {
             tmp = tmp.getNext();
             count++;
         }
         return count;
     }
 
-    public Patient get(int i){
+    /**
+     * Returns the Patient i Patients behind the Patient at the front of the assessment line. If i = 0, returns the
+     * Patient at the front of the line.
+     * @param i The number of steps in line behind the front Patient
+     * @return The patient at the ith step from the front. Returns null if there is no such Patient
+     */
+    public Patient get(int i) {
         PatientNode tmp = head;
         while(i > 0){
             tmp = tmp.getNext();
