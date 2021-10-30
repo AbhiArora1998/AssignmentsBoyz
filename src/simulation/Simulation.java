@@ -51,6 +51,7 @@ public final class Simulation {
         handleAssessmentEvents();
         handleStartTreatmentEvents();
         handleAdmittingToHospitalEvents();
+        handleDepartureEvents();
     }
 
     private static void handleAssessmentEvents() {
