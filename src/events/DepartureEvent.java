@@ -34,4 +34,7 @@ public class DepartureEvent extends Event {
             return "Time " + (startTime + processingTime) + ":  " + patient.getPatientNumber()
                     + " (Priority " + patient.getPriority() +") departs (" + "MISSING TREATMENT ROOM NUMBER AVAILABLE" + " room still available";
     }
+    public Patient getPatient() {
+        return patient;
+    }
 }
