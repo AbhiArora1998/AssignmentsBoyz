@@ -57,6 +57,7 @@ public final class Simulation {
         handleAssessmentEvents();
         handleStartTreatmentEvents();
         handleAdmittingToHospitalEvents();
+        handleDepartureEvents();
     }
 
     /**
@@ -170,18 +171,18 @@ public final class Simulation {
                     System.out.println(currentDepartureEvents.get(i));
                     Patient[] tempPatients = treatmentRoom.getPatients();
                     //opens treatment room
-                    for (int j = 0; j <= NUMBER_OF_TREATMENT_ROOMS - 1; j++) {
-                        if (tempPatients[j].getPriority() != 1 && treatmentRoom.getPatientIsDone(j) && tempPatients[j] == currentDepartureEvents.get(i).getPatient()) {
-                            treatmentRoom.setRoomIsFree(j);
-                            ;
-                        }
-                    }
+                    for (int j = 0; j <= NUMBER_OF_TREATMENT_ROOMS-1; j++) { if (tempPatients[j].getPriority() != 1 && treatmentRoom.getPatientIsDone(j) && tempPatients[j]== currentDepartureEvents.get(i).getPatient()){treatmentRoom.setRoomIsFree(j);}}
                     currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime()); //patient departs
+                    currentDepartureEvents.remove(i);
                 }
             }
-            if (!assessmentQueue.isEmpty()) { //should be treatment rooms
-                //currentAdmittingToHospitalEvent = new AdmittingToHospital() gets patient waiting in treatment room
-                //currentAdmittingToHospitalEvent.start();
+            if(treatmentRoom.getPatients()!=null){ //should be treatment rooms
+                Patient [] tempPatients = treatmentRoom.getPatients();
+                for (int j = 0; j <= NUMBER_OF_TREATMENT_ROOMS-1; j++) { if (tempPatients[j].getPriority() != 1 && treatmentRoom.getPatientIsDone(j) && !currentDepartureEvents.contains(tempPatients[j])){
+                    currentDepartureEvents.add(new DepartureEvent(tempPatients[j]));
+                    currentDepartureEvents.indexOf(tempPatients[j]);
+                    currentDepartureEvents.get(currentDepartureEvents.indexOf(tempPatients[j])).start();
+                }}
             }
         }
     }
