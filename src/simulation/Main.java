@@ -43,17 +43,13 @@ public class Main {
         boolean scanFile = true;
         while (run) {
 
-//            if (Simulation.getAssessmentQueue().isEmpty() &&
-//                    Simulation.getWaitingQueue().isEmpty() &&
-//                    !scanFile){
-//                run = false;
-//            }
-
-            //TODO: replace following if-statement with above once waitingQueue and treatmentEvents work
             if (Simulation.assessmentQueue.isEmpty() &&
+                    Simulation.waitingQueue.isEmpty() &&
+                    !Simulation.treatmentRooms.anyRoomBeingUsed() &&
                     !scanFile){
                 run = false;
             }
+
 
 
             patientTypeArray = new ArrayList<>();

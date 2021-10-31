@@ -2,6 +2,9 @@ package queues;
 
 import simulation.Patient;
 
+import static simulation.Clock.getCurrentClockTime;
+import static simulation.Simulation.treatmentRooms;
+
 /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -65,6 +68,7 @@ public class WaitingQueue {
             newPatientNode.setNext(temp.getNext());
             temp.setNext(newPatientNode);
         }
+        printAddMessage(patient);
     }
 
     /**
@@ -135,5 +139,9 @@ public class WaitingQueue {
             i--;
         }
         return tmp.getPatient();
+    }
+
+    private void printAddMessage(Patient patient){
+        System.out.println("Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Priority " + patient.getPriority() + ") enters waiting room");
     }
 }

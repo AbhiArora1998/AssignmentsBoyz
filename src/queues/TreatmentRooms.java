@@ -14,11 +14,11 @@ import static simulation.Simulation.waitingQueue;
  * This event  occurs when people are waiting in the waiting room to get treated.
  * This treatmentroom  class takes 3 people at a time  in a treatment room and treat them.
  *
- * @author Abhishek Arora
+ * @author The BOYZ
  * Student Number: 230141945
  * @version 1
  */
-public final class TreatmentRooms {
+public class TreatmentRooms {
 
     static private Room[] rooms;
 
@@ -27,11 +27,9 @@ public final class TreatmentRooms {
         public boolean isFree;
         public Patient patient;
         public StartTreatmentEvent treatmentEvent;
-        public int num;
 
-        public Room(int num) {
+        public Room() {
             clear();
-            this.num = num;
         }
 
         public void clear() {
@@ -53,8 +51,8 @@ public final class TreatmentRooms {
      */
     public TreatmentRooms(int numberOfTreatmentRooms) {
         rooms = new Room[numberOfTreatmentRooms];
-        for (Room room : rooms) {
-            room = new Room(2);
+        for (int i = 0; i < rooms.length; i++) {
+            rooms[i] = new Room();
         }
     }
 
@@ -164,14 +162,24 @@ public final class TreatmentRooms {
         return treatmentEvents;
     }
 
-    public ArrayList<Patient> getPriority1Patients() {
+    public ArrayList<Patient> getDonePriority1Patients() {
         ArrayList<Patient> patients = new ArrayList<>();
         for (Room room : rooms) {
-            if (room.patient.getPriority() == 1) {
+            if (room.patient != null && room.patient.getPriority() == 1 && room.treatmentEvent.isDone()) {
                 patients.add(room.patient);
             }
         }
 
         return patients;
+    }
+
+    public int roomsAvailable(){
+        int count = 0;
+        for(Room room: rooms) {
+            if(room.isFree){
+                count++;
+            }
+        }
+        return count;
     }
 }

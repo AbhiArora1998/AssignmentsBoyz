@@ -129,7 +129,7 @@ public final class Simulation {
                 treatmentRooms.releasePatient(currentAdmittingToHospitalEvent.getPatient());
             }
 
-            ArrayList<Patient> priority1Patients = treatmentRooms.getPriority1Patients();
+            ArrayList<Patient> priority1Patients = treatmentRooms.getDonePriority1Patients();
 
             if (treatmentRooms.anyRoomBeingUsed() && admissionNurseAvailable && !priority1Patients.isEmpty()) { //should be treatment rooms
                 Patient temp = priority1Patients.get(0);
@@ -146,13 +146,9 @@ public final class Simulation {
             }
         }
         //this increases wait time of priority 1 patients that are in the treatment room and are not addmitted
-        if ((currentAdmittingToHospitalEvent != null && !currentAdmittingToHospitalEvent.isDone())) {
-            ArrayList<Patient> priority1Patients = treatmentRooms.getPriority1Patients();
-
-            for(Patient patient: priority1Patients){
-                if(patient != currentAdmittingToHospitalEvent.getPatient()){
-                    patient.increaseWaitingTime();
-                }
+        for(Patient patient: treatmentRooms.getDonePriority1Patients()){
+            if(patient != currentAdmittingToHospitalEvent.getPatient()){
+                patient.increaseWaitingTime();
             }
         }
     }
@@ -164,13 +160,14 @@ public final class Simulation {
         //If any room is occupied...
         if (treatmentRooms.anyRoomBeingUsed()) {
             //...Remove and print finished departures
-            for(DepartureEvent event: currentDepartureEvents){
-                if(event.isDone() && event.getPatient().getPriority() != 1){
-                    System.out.println(event);
-                    treatmentRooms.releasePatient(event.getPatient());
-                    event.getPatient().setDepartureTime(getCurrentClockTime());
-                    System.out.println(event.getPatient().getDepartureTime());
-                    currentDepartureEvents.remove(event);
+            for (int i = 0; i < currentDepartureEvents.size(); i++) {
+
+                if (currentDepartureEvents.get(i).isDone() && currentDepartureEvents.get(i).getPatient().getPriority() != 1) {
+                    System.out.println(currentDepartureEvents.get(i));
+                    treatmentRooms.releasePatient(currentDepartureEvents.get(i).getPatient());
+                    currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime());
+                    System.out.println(currentDepartureEvents.get(i).getPatient().getDepartureTime());
+                    currentDepartureEvents.remove(currentDepartureEvents.get(i));
                 }
             }
 
@@ -178,7 +175,7 @@ public final class Simulation {
             if (treatmentRooms.anyRoomBeingUsed()) {
                 StartTreatmentEvent[] treatmentEvents = treatmentRooms.getTreatmentEvents();
                 for(StartTreatmentEvent event: treatmentEvents){
-                    if(event.getPatient().getPriority() != 1 && event.isDone() && !currentDepartureEvents.contains(event)){
+                    if(event != null && event.getPatient().getPriority() != 1 && event.isDone() && !currentDepartureEvents.contains(event)){
                         DepartureEvent departureEvent = new DepartureEvent(event.getPatient());
                         currentDepartureEvents.add(departureEvent);
                         departureEvent.start();
