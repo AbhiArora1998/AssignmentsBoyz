@@ -177,7 +177,6 @@ public final class Simulation {
                 System.out.println(currentDepartureEvents.get(i));
                 treatmentRooms.releasePatient(currentDepartureEvents.get(i).getPatient());
                 currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime());
-                System.out.println(currentDepartureEvents.get(i).getPatient().getDepartureTime());
                 currentDepartureEvents.remove(i);
             }
         }
