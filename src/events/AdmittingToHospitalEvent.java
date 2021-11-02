@@ -25,10 +25,10 @@ public class AdmittingToHospitalEvent extends Event {
     public String toString() {
         if(!isDone()){
             return "Time " + startTime + ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() +") admitted to Hospital";
+                    + " (Priority " + patient.getPriority() +", waited " + patient.getWaitingTime()+ ") admitted to Hospital";
         } else {
-            return "Time " + (startTime + processingTime) + ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() +") departs (" + "MISSING TREATMENT ROOM NUMBER AVAILABLE" + " room still available";
+            return "Time " + (startTime + processingTime) + ":  " + patient.getPatientNumber() //(waited 0, 1 rm(s) remain)
+                    + " (Priority " + patient.getPriority() +") departs, " + Simulation.treatmentRooms.roomsAvailable()+ " rm(s) remain";
         }
 
     }
