@@ -101,9 +101,10 @@ public final class Simulation {
                 e.printStackTrace();
             }
         }
-        for (StartTreatmentEvent event : currentStartTreatmentEvents) {
-            if (event != null && event.isDone()) {
-                System.out.println(event.toString());
+        for (int i = 0; i < currentStartTreatmentEvents.length; i++) {
+            if (currentStartTreatmentEvents[i] != null && currentStartTreatmentEvents[i].isDone()) {
+                System.out.println(currentStartTreatmentEvents[i].toString());
+                currentStartTreatmentEvents[i] = null;
                 //TODO: End treatment event
             }
         }
@@ -159,20 +160,7 @@ public final class Simulation {
     private static void handleDepartureEvents() {
         //If any room is occupied...
         if (treatmentRooms.anyRoomBeingUsed()) {
-            //...Remove and print finished departures
-            for (int i = 0; i < currentDepartureEvents.size(); i++) {
-
-                if (currentDepartureEvents.get(i).isDone() && currentDepartureEvents.get(i).getPatient().getPriority() != 1) {
-                    System.out.println(currentDepartureEvents.get(i));
-                    treatmentRooms.releasePatient(currentDepartureEvents.get(i).getPatient());
-                    currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime());
-                    System.out.println(currentDepartureEvents.get(i).getPatient().getDepartureTime());
-                    currentDepartureEvents.remove(currentDepartureEvents.get(i));
-                }
-            }
-
             //...Create new departures
-            if (treatmentRooms.anyRoomBeingUsed()) {
                 StartTreatmentEvent[] treatmentEvents = treatmentRooms.getTreatmentEvents();
                 for(StartTreatmentEvent event: treatmentEvents){
                     if(event != null && event.getPatient().getPriority() != 1 && event.isDone() && !currentDepartureEvents.contains(event)){
@@ -182,6 +170,17 @@ public final class Simulation {
 
                     }
                 }
+        }
+
+        // Remove and print finished departures
+        for (int i = 0; i < currentDepartureEvents.size(); i++) {
+
+            if (currentDepartureEvents.get(i).isDone()) {
+                System.out.println(currentDepartureEvents.get(i));
+                treatmentRooms.releasePatient(currentDepartureEvents.get(i).getPatient());
+                currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime());
+                System.out.println(currentDepartureEvents.get(i).getPatient().getDepartureTime());
+                currentDepartureEvents.remove(i);
             }
         }
     }
