@@ -3,6 +3,8 @@ package events;
 import simulation.Patient;
 import simulation.Simulation;
 
+import static simulation.Clock.getCurrentClockTime;
+
 public class AdmittingToHospitalEvent extends Event {
 
     private static final int ADMITTING_PROCESSING_TIME = 3;
@@ -18,16 +20,18 @@ public class AdmittingToHospitalEvent extends Event {
     public void start(){
         super.start();
         patient.setAdmittingToHospitalTime(startTime);
-        System.out.println(this);
+
     }
 
     @Override
     public String toString() {
-        if(isDone()){
-            return "Time " + startTime + ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() +", waited " + patient.getWaitingTime()+ ") admitted to Hospital";
+        if(!isDone()){
+            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
+                    + " (Priority " + patient.getPriority() +", waited " + patient.getWaitingTime()+ ") is being admitted to Hospital";
+        } else {
+            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
+                    + " (Priority " + patient.getPriority() + ", waited " + patient.getWaitingTime() + ") admitted to Hospital";
         }
-        return null;
     }
 
     public Patient getPatient() {
