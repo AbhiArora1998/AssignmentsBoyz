@@ -1,6 +1,7 @@
 package events;
 
 import simulation.Patient;
+import simulation.Simulation;
 
 /**
  * This file is part of a solution to
@@ -32,7 +33,7 @@ public class DepartureEvent extends Event {
     @Override
     public String toString() {
             return "Time " + (startTime + processingTime) + ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() +") departs (" + "MISSING TREATMENT ROOM NUMBER AVAILABLE" + " room still available";
+                    + " (Priority " + patient.getPriority() +") departs, " + Simulation.treatmentRooms.roomsAvailable()+ " rm(s) remain";
     }
     public Patient getPatient() {
         return patient;
