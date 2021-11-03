@@ -124,7 +124,7 @@ public final class Simulation {
             //...Create new departures
             StartTreatmentEvent[] treatmentEvents = treatmentRooms.getTreatmentEvents();
             for (StartTreatmentEvent event : treatmentEvents) {
-                if (event != null && event.isDone() && !currentDepartureEvents.contains(event)) {
+                if (event != null && event.isDone() && event.getPatient().getPriority() != 1 && !currentDepartureEvents.contains(event)) {
                     DepartureEvent departureEvent = new DepartureEvent(event.getPatient());
                     currentDepartureEvents.add(departureEvent);
                     departureEvent.start();
@@ -166,9 +166,7 @@ public final class Simulation {
 
         // Remove and print finished departures
         for (int i = 0; i < currentDepartureEvents.size(); i++) {
-
             if (currentDepartureEvents.get(i).isDone()) {
-
                 treatmentRooms.releasePatient(currentDepartureEvents.get(i).getPatient());
                 currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime());
                 System.out.println(currentDepartureEvents.get(i));
