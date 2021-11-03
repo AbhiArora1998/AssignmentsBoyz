@@ -176,18 +176,15 @@ public final class Simulation {
                 }
             }
         }
-
         // Remove and print finished departures
         for (int i = 0; i < currentDepartureEvents.size(); i++) {
-
             if (currentDepartureEvents.get(i).isDone()) {
-                System.out.println(currentDepartureEvents.get(i));
                 treatmentRooms.releasePatient(currentDepartureEvents.get(i).getPatient());
                 currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime());
+                System.out.println(currentDepartureEvents.get(i));
                 currentDepartureEvents.remove(i);
             }
         }
-
     }
 
     /**
