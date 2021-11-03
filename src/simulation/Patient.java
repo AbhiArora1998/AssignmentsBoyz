@@ -34,6 +34,8 @@ public class Patient {
     private int waitingTime;
     private int assessmentTime;
     private int admittingHospitalTime;
+    private int assessmentCompletedTime;
+    private int finishTreatmentTime;
     private int departureTime;
     private Event currentEvent;
     private static final Random random = new Random(1000);
@@ -145,6 +147,14 @@ public class Patient {
     public void setAssessmentTime(int assessmentTime) {
         this.assessmentTime = assessmentTime;
     }
+
+    public int getAssessmentCompletedTime(){ return assessmentCompletedTime;}
+
+    public void setAssessmentCompletedTime(int assessmentCompleted) {this.assessmentCompletedTime = assessmentCompleted;}
+
+    public int getFinishTreatmentTime(){ return finishTreatmentTime;}
+
+    public void setFinishTreatmentTime(int finishTreatmentTime) {this.finishTreatmentTime = finishTreatmentTime;}
 
     public void setAdmittingToHospitalTime(int assessmentTime) {
         this.admittingHospitalTime = assessmentTime;

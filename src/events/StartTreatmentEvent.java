@@ -44,12 +44,13 @@ public class StartTreatmentEvent extends Event {
     @Override
     public String toString() {
         if(isDone()){
+            patient.setFinishTreatmentTime(getCurrentClockTime());
             return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
                     + " (Priority " + patient.getPriority() + ") finishes treatment";
         } else if (hasStarted && startTime == getCurrentClockTime()){
             return "Time " + startTime + ":  " + patient.getPatientNumber()
                     + " (Priority " + patient.getPriority() + ") starts treatment"
-                    + " (waited " + patient.getWaitingTime()
+                    + " (waited " + (getCurrentClockTime()- patient.getAssessmentCompletedTime())//(getCurrentClockTime() - patient.getAssessmentTime()) + " START TREATMENT EVENT assessetime " + patient.getAssessmentTime()
                     + ", "+ treatmentRooms.roomsAvailable() + " rm(s) remain)";
         } else if (hasStarted){
             return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()

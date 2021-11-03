@@ -102,8 +102,6 @@ public final class Simulation {
             } else {
                 run = false;
             }
-
-
         }
 
         increaseWaitingTimes();

@@ -10,6 +10,18 @@ import java.util.Scanner;
 the class takes the input from the text file that we have created
 
  */
+
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assignment 1 Problem 1 Fall 2021
+ *
+ * Implements a place in line for a patient to wait. Each queues.PatientNode stores
+ * the patient behind them while in a line.
+ *
+ * @author Noah Stobbe
+ * Student Number: 230140171
+ * @version 1
+ */
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner inputReader = new Scanner(System.in);

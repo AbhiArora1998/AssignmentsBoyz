@@ -48,6 +48,7 @@ public class AssessmentEvent extends Event {
     public String toString() {
 
         if(isDone()){
+            patient.setAssessmentCompletedTime(getCurrentClockTime());
             return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
                     + " assessment completed (Priority now " + patient.getPriority() +")";
         } else if (hasStarted && startTime == getCurrentClockTime()){

@@ -44,7 +44,7 @@ public class AdmittingToHospitalEvent extends Event {
                     + " (Priority " + patient.getPriority() +", waited " + patient.getWaitingTime()+ ") is being admitted to Hospital";
         } else {
             return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() + ", waited " + patient.getWaitingTime() + ") admitted to Hospital";
+                    + " (Priority " + patient.getPriority() + ", waited " + (getCurrentClockTime() - (patient.getFinishTreatmentTime()+ADMITTING_PROCESSING_TIME)) + ") admitted to Hospital";
         }
     }
 
