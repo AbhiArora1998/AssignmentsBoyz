@@ -11,8 +11,8 @@ import static simulation.Simulation.waitingQueue;
  * This file is part of a solution to
  * CPSC300 Assignment 1 Problem 1 Fall 2021
  * <p>
- * This event  occurs when people are waiting in the waiting room to get treated.
- * This treatmentroom  class takes 3 people at a time  in a treatment room and treat them.
+ * This event occurs when people are waiting in the waiting room to get treated.
+ * This treatmentroom class takes 3 people at a time in a treatment room and treats them.
  *
  * @author The BOYZ
  * Student Number: 230141945
