@@ -5,6 +5,8 @@ import simulation.Patient;
 
 import java.util.Random;
 
+import static simulation.Clock.getCurrentClockTime;
+
 public class ArrivalEvent extends Event {
 
     private final char patientType;
@@ -64,9 +66,9 @@ public class ArrivalEvent extends Event {
     @Override
     public String toString() {
         if (patient.getType() == Patient.CODE_E){
-            return "Time " + creationTime + ":  " + patient.getPatientNumber() + " (Emergency) arrives" ;
+            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Emergency) arrives" ;
         } else if (patient.getType() == Patient.CODE_W){
-            return "Time " + creationTime + ":  " + patient.getPatientNumber() + " (Walk-In) arrives" ;
+            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Walk-in) arrives" ;
         } else {
             return "Error: simulation.Patient not initialized (in to String).";
         }
