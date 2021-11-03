@@ -66,7 +66,7 @@ public class ArrivalEvent extends Event {
         if (patient.getType() == Patient.CODE_E){
             return "Time " + creationTime + ":  " + patient.getPatientNumber() + " (Emergency) arrives" ;
         } else if (patient.getType() == Patient.CODE_W){
-            return "Time " + creationTime + ":  " + patient.getPatientNumber() + " (Walk-in) arrives" ;
+            return "Time " + creationTime + ":  " + patient.getPatientNumber() + " (Walk-In) arrives" ;
         } else {
             return "Error: simulation.Patient not initialized (in to String).";
         }

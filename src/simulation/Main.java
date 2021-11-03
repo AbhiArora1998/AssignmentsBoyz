@@ -3,6 +3,7 @@ package simulation;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /*
@@ -86,10 +87,8 @@ public class Main {
             Clock.advanceClock();
 
         }
-        //TODO: Waiting queue no working properly. Some patients missing?
         //System.out.println(Simulation.getWaitingQueue().toString());
 
-        //TODO: finish adding missing numbers into summary table.
         System.out.println("\n...All events complete. Final Summary:\n");
 
         String format = " %10d  %10d  %10d  %10d  %10d  %10s  %10d %n";
@@ -98,6 +97,7 @@ public class Main {
         System.out.format("     Number                    Time        Time    Required        Time        Time %n");
         System.out.format("------------------------------------------------------------------------------------%n");
         float sum= 0;
+        Patient.patients.sort(Comparator.comparing(Patient::getPriority));
         for (Patient patient: Patient.patients) {
             System.out.format(format,
                     patient.getPatientNumber(),
