@@ -62,7 +62,7 @@ public class TreatmentRooms {
      * @return
      * @throws Exception
      */
-    public int getRoomAvailable() throws Exception {
+    public int getRoomAvailable() {
         int roomNumber = -1;
         for (int i = 0; i < rooms.length; i++) {
             if (rooms[i].isFree) {
@@ -71,7 +71,7 @@ public class TreatmentRooms {
             }
         }
         if (roomNumber == -1) {
-            throw new Exception("ERROR: No rooms available. Did you check availability with anyRoomAvailable first?");
+            System.out.println("ERROR: No rooms available. Did you check availability with anyRoomAvailable first?");
         }
         return roomNumber;
     }

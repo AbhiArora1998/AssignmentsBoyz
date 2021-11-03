@@ -1,7 +1,5 @@
 package queues;
 
-import simulation.Patient;
-
 /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -13,29 +11,30 @@ import simulation.Patient;
  * @version 1
  */
 
-public class LinearQueue {
-    private PatientNode head;
+public class LinearQueue<T> {
+    private Node<T> head;
 
-    public LinearQueue() {}
+    public LinearQueue() {
+        /* empty */
+    }
 
     /**
-     * Adds a patient to the back of the assessment line
-     * @param patient The patient to join the line
+     * Adds an obj to the back of the assessment line
+     * @param obj The obj to join the line
      * @return none
      */
-    public void add(Patient patient) {
+    public void add(T obj) {
         if (head == null) {
-            head = new PatientNode(patient);
+            head = new Node<T>(obj);
         } else {
-            PatientNode temp = head;
-            // Set temp to the last patient in the assessment line
+            Node<T> temp = head;
+            // Set temp to the last obj in the assessment line
             while (temp.getNext() != null) {
                 temp = temp.getNext();
             }
-            // Put new patient after last patient in line for assessment
-            temp.setNext(new PatientNode(patient));
+            // Put new obj after last obj in line for assessment
+            temp.setNext(new Node<T>(obj));
         }
-        PatientNode newNode = new PatientNode(patient);
     }
 
     /**
@@ -43,21 +42,21 @@ public class LinearQueue {
      * returns null.
      * @return head The current head attribute of AssessmentQueue at the time this method is called
      */
-    public Patient remove() {
+    public T remove() {
         if (head == null) {
             return null;
         } else if (head.getNext() == null) {
             // Store the person at the front of the line separately as they are leaving the line
-            PatientNode temp = head;
+            Node<T> temp = head;
             // Empty the line
             head = null;
-            return temp.getPatient();
+            return temp.getInfo();
         } else {
             // Store the person at the front of the line separately as they are leaving the line
-            PatientNode temp = head;
+            Node<T> temp = head;
             // Second person in line becomes first
             head = head.getNext();
-            return temp.getPatient();
+            return temp.getInfo();
         }
     }
 
@@ -68,12 +67,12 @@ public class LinearQueue {
     @Override
     public String toString() {
         if(head != null) {
-            PatientNode tmp = head;
+            Node<T> tmp = head;
             String string = "Linear Queue (assessment): \n  ";
-            string += tmp.getPatient().toString();
+            string += tmp.getInfo().toString();
             while (tmp.getNext() != null) {
                 string += "\n  ";
-                string += tmp.getNext().getPatient().toString();
+                string += tmp.getNext().getInfo().toString();
                 tmp = tmp.getNext();
             }
             return string;
@@ -93,7 +92,7 @@ public class LinearQueue {
      * Returns the Patient at the front of the assessment line
      * @return head The Patient at the front of the assessment line
      */
-    public PatientNode getHead() {
+    public Node<T> getHead() {
         return head;
     }
 
@@ -103,7 +102,7 @@ public class LinearQueue {
      */
     public int size(){
         int count = 0;
-        PatientNode tmp = head;
+        Node<T> tmp = head;
         while(tmp != null) {
             tmp = tmp.getNext();
             count++;
@@ -117,12 +116,12 @@ public class LinearQueue {
      * @param i The number of steps in line behind the front Patient
      * @return The patient at the ith step from the front. Returns null if there is no such Patient
      */
-    public Patient get(int i) {
-        PatientNode tmp = head;
+    public T get(int i) {
+        Node<T> tmp = head;
         while(i > 0){
             tmp = tmp.getNext();
             i--;
         }
-        return tmp.getPatient();
+        return tmp.getInfo();
     }
 }

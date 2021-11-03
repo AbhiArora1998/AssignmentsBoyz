@@ -1,66 +1,52 @@
 package events;
 
-import queues.LinearQueue;
 import simulation.Patient;
 
-import java.util.Random;
-
 import static simulation.Clock.getCurrentClockTime;
+import static simulation.Simulation.assessmentQueue;
+import static simulation.Simulation.waitingQueue;
 
 public class ArrivalEvent extends Event {
 
     private final char patientType;
     private final int treatmentTime;
-    private LinearQueue linearQueue;
-    private final Random random = new Random(1000);
-    private Patient patient;
+    private static final int ARRIVAL_PROCESSING_TIME = 0;
 
     public ArrivalEvent(char patientType, int treatmentTime) {
         super();
         this.patientType = patientType;
         this.treatmentTime = treatmentTime;
-
-        start();
-        /*
-        Checks to see if the patient type is E
-         */
-        if(patientType == Patient.CODE_E){
-            patient.setAssessmentTime(startTime);
-        }
-
-        System.out.println(this);
-    }
-
-    public ArrivalEvent(char patientType, int treatmentTime, int priority) {
-        super();
-        this.patientType = patientType;
-        this.treatmentTime = treatmentTime;
-
-        start(priority);
-        if(patientType == Patient.CODE_E){
-            patient.setAssessmentTime(startTime);
-        }
-        System.out.println(this);
-    }
-
-    /**
-     * Create a new simulation.Patient
-     * @param priority The severity of the patient's symptoms, used to determine which patients
-     *                 are to be treated earliest
-     */
-    public void start(int priority){
-        super.start();
-        patient = new Patient(creationTime, patientType, treatmentTime, priority);
+        this.processingTime = ARRIVAL_PROCESSING_TIME;
+        patient = new Patient(startTime, patientType, treatmentTime);
     }
 
     @Override
     public void start() {
         super.start();
-        patient = new Patient(creationTime, patientType, treatmentTime);
+        patient.setCurrentEvent(this);
+        shouldStart = false;
     }
 
-    public Patient getPatient() {
-        return patient;
+    @Override
+    public void finish() {
+        patient.setArrivalTime(getCurrentClockTime());
+        patient.setCurrentEvent(null);
+        if (patient.getType() == Patient.CODE_W) {
+            assessmentQueue.add(new AssessmentEvent(patient));
+        } else if (patient.getType() == Patient.CODE_E) {
+            patient.setAssessmentTime(getCurrentClockTime());
+            waitingQueue.add(new StartTreatmentEvent(patient));
+        } else {
+            System.out.println("ERROR: simulation.Patient has unknown type. Using W as a result.");
+            patient.setType('W');
+            assessmentQueue.add(new AssessmentEvent(patient));
+        }
+        System.out.println(this);
+        if(patient.getType() == Patient.CODE_E){
+            System.out.println("Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Priority " + patient.getPriority() + ") enters waiting room");
+        }
+        isDone = true;
+
     }
 
     @Override

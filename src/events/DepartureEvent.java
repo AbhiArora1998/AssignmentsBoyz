@@ -4,6 +4,7 @@ import simulation.Patient;
 import simulation.Simulation;
 
 import static simulation.Clock.getCurrentClockTime;
+import static simulation.Simulation.treatmentRooms;
 
 /**
  * This file is part of a solution to
@@ -20,7 +21,6 @@ public class DepartureEvent extends Event {
 
     private static final int DEPARTURE_PROCESSING_TIME_OTHER_PRIORITIES = 1;
     private static final int DEPARTURE_PROCESSING_TIME_PRIORITY1 = 0;
-    private Patient patient;
 
     public DepartureEvent(Patient patient) {
         super();
@@ -36,14 +36,24 @@ public class DepartureEvent extends Event {
     @Override
     public void start() {
         super.start();
+        shouldStart = false;
+    }
+
+    @Override
+    public void finish() {
+
+
+        isDone = true;
+        patient.setCurrentEvent(null);
+        treatmentRooms.releasePatient(patient);
+        patient.setDepartureTime(getCurrentClockTime());
+        System.out.println(this);
     }
 
     @Override
     public String toString() {
             return "Time " + getCurrentClockTime()+ ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() +") departs, " + Simulation.treatmentRooms.roomsAvailable()+ " rm(s) remain";
+                    + " (Priority " + patient.getPriority() +") departs, " + treatmentRooms.roomsAvailable()+ " rm(s) remain";
     }
-    public Patient getPatient() {
-        return patient;
-    }
+
 }

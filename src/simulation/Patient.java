@@ -10,6 +10,8 @@
 
 package simulation;
 
+import events.Event;
+
 import java.util.ArrayList;
 import java.util.Random;
 /*
@@ -25,15 +27,16 @@ public class Patient {
     public static ArrayList<Patient> patients = new ArrayList<>();
 
     private final int patientNumber;
-    private final char type; //Type of patient (Walk-in or Emergency)
+    private char type; //Type of patient (Walk-in or Emergency)
     private int priority = 0;
     private int treatmentTime;
     private int arrivalTime; //When did the patient arrived
     private int waitingTime;
-    private int admittingToHospitalTime;
     private int assessmentTime;
+    private int admittingHospitalTime;
     private int departureTime;
-    private static Random random = new Random(1000);
+    private Event currentEvent;
+    private static final Random random = new Random(1000);
 
     /**
      * Constructor. Per assignment instructions, priority is randomised,
@@ -88,6 +91,10 @@ public class Patient {
         return type;
     }
 
+    public void setType(char type) {
+        this.type = type;
+    }
+
     public int getPriority() {
         return priority;
     }
@@ -140,10 +147,17 @@ public class Patient {
     }
 
     public void setAdmittingToHospitalTime(int assessmentTime) {
-        this.assessmentTime = assessmentTime;
+        this.admittingHospitalTime = assessmentTime;
     }
 
     public int getDepartureTime(){return departureTime;}
     public void setDepartureTime(int time){departureTime = time;}
 
+    public Event getCurrentEvent() {
+        return currentEvent;
+    }
+
+    public void setCurrentEvent(Event currentEvent) {
+        this.currentEvent = currentEvent;
+    }
 }

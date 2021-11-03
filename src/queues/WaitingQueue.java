@@ -1,9 +1,9 @@
 package queues;
 
+import events.Event;
 import simulation.Patient;
 
 import static simulation.Clock.getCurrentClockTime;
-import static simulation.Simulation.treatmentRooms;
 
 /**
  * This file is part of a solution to
@@ -18,44 +18,44 @@ import static simulation.Simulation.treatmentRooms;
 
 public class WaitingQueue {
     // The Patient who will be chosen next
-    PatientNode head;
+    Node<Event> head;
 
     public WaitingQueue() {}
 
     /**
-     * Adds a patient to the waiting line based upon their priority. If others have the same priority,
+     * Adds a event to the waiting line based upon their priority. If others have the same priority,
      * patientNumber is the determining factor for the order those Patients are lined up in
-     * @param patient The patient to join the line
+     * @param event The event to join the line
      * @return none
      */
-    public void add(Patient patient) {
-        PatientNode newPatientNode = new PatientNode(patient);
+    public void add(Event event) {
+        Node<Event> newPatientNode = new Node<>(event);
         // If there is no line
         if (head == null) {
             head = newPatientNode;
         }
         // If the head has losing priority
-        else if (head.getPatient().getPriority() > newPatientNode.getPatient().getPriority()) {
+        else if (head.getInfo().getPatient().getPriority() > newPatientNode.getInfo().getPatient().getPriority()) {
             newPatientNode.setNext(head);
             head = newPatientNode;
         }
         // If the head has the same priority and the head has been in line for less time
-        else if ((head.getPatient().getPriority() == newPatientNode.getPatient().getPriority()
-                && (head.getPatient().getPatientNumber() > newPatientNode.getPatient().getPatientNumber()))) {
+        else if ((head.getInfo().getPatient().getPriority() == newPatientNode.getInfo().getPatient().getPriority()
+                && (head.getInfo().getPatient().getPatientNumber() > newPatientNode.getInfo().getPatient().getPatientNumber()))) {
             newPatientNode.setNext(head);
             head = newPatientNode;
         }
-        // If the head has winning priority or patient number and is the only patient in line
+        // If the head has winning priority or event number and is the only event in line
         else if(head.getNext() == null) {
             head.setNext(newPatientNode);
         }
         // If we need to trace further down the line until we find a priority that loses
         else {
-            PatientNode temp = head;
-            // While the next patient in line has winning priority, or has the same priority but has waited longer
-            while(temp.getNext().getPatient().getPriority() < newPatientNode.getPatient().getPriority()
-                    || (temp.getNext().getPatient().getPriority() == newPatientNode.getPatient().getPriority()
-                    && temp.getNext().getPatient().getPatientNumber() < newPatientNode.getPatient().getPatientNumber())) {
+            Node<Event> temp = head;
+            // While the next event in line has winning priority, or has the same priority but has waited longer
+            while(temp.getNext().getInfo().getPatient().getPriority() < newPatientNode.getInfo().getPatient().getPriority()
+                    || (temp.getNext().getInfo().getPatient().getPriority() == newPatientNode.getInfo().getPatient().getPriority()
+                    && temp.getNext().getInfo().getPatient().getPatientNumber() < newPatientNode.getInfo().getPatient().getPatientNumber())) {
                 temp = temp.getNext();
                 // If we reach the end of the line (because all other patients have more priority)
                 if (temp.getNext() == null) {
@@ -64,11 +64,10 @@ public class WaitingQueue {
                 }
             }
 
-            // At this point, we know that the spot for the new patient is between temp and temp.getNext()
+            // At this point, we know that the spot for the new event is between temp and temp.getNext()
             newPatientNode.setNext(temp.getNext());
             temp.setNext(newPatientNode);
         }
-        printAddMessage(patient);
     }
 
     /**
@@ -76,21 +75,21 @@ public class WaitingQueue {
      * returns null.
      * @return head The current head attribute of queues.WaitingQueue at the time this method is called
      */
-    public Patient remove() {
+    public Event remove() {
         if (head == null) {
             return null;
         } else if (head.getNext() == null) {
             // Store the person at the front of the line separately as they are leaving the line
-            PatientNode temp = head;
+            Node<Event> temp = head;
             // Empty the line
             head = null;
-            return temp.getPatient();
+            return temp.getInfo();
         } else {
             // Store the person at the front of the line separately as they are leaving the line
-            PatientNode temp = head;
+            Node<Event> temp = head;
             // Second person in line becomes first
             head = head.getNext();
-            return temp.getPatient();
+            return temp.getInfo();
         }
     }
 
@@ -101,12 +100,12 @@ public class WaitingQueue {
     @Override
     public String toString() {
         if(head != null) {
-            PatientNode tmp = head;
+            Node<Event> tmp = head;
             String string = "Waiting Queue (for treatment): \n ";
-            string += tmp.getPatient().toString();
+            string += tmp.getInfo().getPatient().toString();
             while (tmp.getNext() != null) {
                 string += "\n  ";
-                string += tmp.getNext().getPatient().toString();
+                string += tmp.getNext().getInfo().getPatient().toString();
                 tmp = tmp.getNext();
             }
             return string;
@@ -124,7 +123,7 @@ public class WaitingQueue {
 
     public int size(){
         int count = 0;
-        PatientNode tmp = head;
+        Node<Event> tmp = head;
         while(tmp != null){
             tmp = tmp.getNext();
             count++;
@@ -132,16 +131,22 @@ public class WaitingQueue {
         return count;
     }
 
-    public Patient get(int i){
-        PatientNode tmp = head;
+    public Patient getPatient(int i){
+        Node<Event> tmp = head;
         while(i > 0){
             tmp = tmp.getNext();
             i--;
         }
-        return tmp.getPatient();
+        return tmp.getInfo().getPatient();
     }
 
-    private void printAddMessage(Patient patient){
-        System.out.println("Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Priority " + patient.getPriority() + ") enters waiting room");
+    public Event getEvent(int i){
+        Node<Event> tmp = head;
+        while(i > 0){
+            tmp = tmp.getNext();
+            i--;
+        }
+        return tmp.getInfo();
     }
+
 }

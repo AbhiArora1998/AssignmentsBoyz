@@ -14,23 +14,23 @@ import simulation.Patient;
  * @version 1
  */
 
-public class PatientNode {
-    private Patient patient;
-    private PatientNode next;
+public class Node<T> {
+    private final T obj;
+    private Node<T> next;
 
-    public PatientNode(Patient patient) {
-        this.patient = patient;
+    public Node(T obj) {
+        this.obj = obj;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public T getInfo() {
+        return obj;
     }
 
-    public PatientNode getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    public void setNext(PatientNode next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 }

@@ -8,7 +8,7 @@ import static simulation.Clock.getCurrentClockTime;
 public class AdmittingToHospitalEvent extends Event {
 
     private static final int ADMITTING_PROCESSING_TIME = 3;
-    private Patient patient;
+    private static AdmittingToHospitalEvent currentAdmittingToHospitalEvent = null;
 
     public AdmittingToHospitalEvent(Patient patient) {
         super();
@@ -18,9 +18,23 @@ public class AdmittingToHospitalEvent extends Event {
 
     @Override
     public void start(){
-        super.start();
-        patient.setAdmittingToHospitalTime(startTime);
+        if(currentAdmittingToHospitalEvent == null){
+            super.start();
+            patient.setAdmittingToHospitalTime(getCurrentClockTime());
+            patient.setCurrentEvent(this);
 
+        }
+            shouldStart = false;
+
+
+    }
+
+    @Override
+    public void finish() {
+        currentAdmittingToHospitalEvent = null;
+        patient.setCurrentEvent(new DepartureEvent(patient));
+        isDone = true;
+        System.out.println(this);
     }
 
     @Override
@@ -34,7 +48,11 @@ public class AdmittingToHospitalEvent extends Event {
         }
     }
 
-    public Patient getPatient() {
-        return patient;
+    public static AdmittingToHospitalEvent getCurrentAdmittingToHospitalEvent() {
+        return currentAdmittingToHospitalEvent;
+    }
+
+    public static void setCurrentAdmittingToHospitalEvent(AdmittingToHospitalEvent currentAdmittingToHospitalEvent) {
+        AdmittingToHospitalEvent.currentAdmittingToHospitalEvent = currentAdmittingToHospitalEvent;
     }
 }

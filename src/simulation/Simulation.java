@@ -11,16 +11,13 @@
 
 package simulation;
 
-import events.AdmittingToHospitalEvent;
-import events.ArrivalEvent;
-import events.AssessmentEvent;
-import events.DepartureEvent;
-import events.StartTreatmentEvent;
+import events.*;
 import queues.LinearQueue;
 import queues.TreatmentRooms;
 import queues.WaitingQueue;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import static simulation.Clock.getCurrentClockTime;
 
@@ -29,16 +26,9 @@ public final class Simulation {
     public static final int NUMBER_OF_TREATMENT_ROOMS = 3;
 
     //TODO: change queues to hold events instead of patients? Maybe
-    public static final LinearQueue assessmentQueue = new LinearQueue();
+    public static final LinearQueue<AssessmentEvent> assessmentQueue = new LinearQueue<>();
     public static final WaitingQueue waitingQueue = new WaitingQueue();
     public static TreatmentRooms treatmentRooms = new TreatmentRooms(NUMBER_OF_TREATMENT_ROOMS);
-
-    //TODO: currentEvents class
-    private static AssessmentEvent currentAssessmentEvent;
-    private static AdmittingToHospitalEvent currentAdmittingToHospitalEvent;
-    private static ArrayList<DepartureEvent> currentDepartureEvents = new ArrayList<>();
-    private static boolean admissionNurseAvailable = true;
-    private static StartTreatmentEvent[] currentStartTreatmentEvents = new StartTreatmentEvent[NUMBER_OF_TREATMENT_ROOMS];
 
     private Simulation() {
         /* empty */
@@ -52,142 +42,87 @@ public final class Simulation {
      */
     public static void doOneClockCycle(ArrayList<Character> patientType, ArrayList<Integer> processingTime) {
 
-        processDoneEvents();
-
-        createNewEvents(patientType, processingTime);
-
-        increaseWaitingTimes();
-//        System.out.println("Time  " + getCurrentClockTime() + ": ST" + Arrays.toString(currentStartTreatmentEvents));
-//        if(currentAssessmentEvent != null){
-//            System.out.println("Time  " + getCurrentClockTime() + ": A" + currentAssessmentEvent.toString());
-//        }
-
-    }
-
-    private static void createNewEvents(ArrayList<Character> patientType, ArrayList<Integer> processingTime) {
-
+        //Create new arrival events. Do not start them yet, as events happen in order based on patient number
         for (int i = 0; i < patientType.size(); i++) {
             ArrivalEvent arrivalEvent = new ArrivalEvent(patientType.get(i), processingTime.get(i));
+            arrivalEvent.setShouldStart(true);
+        }
 
-            if (patientType.get(i) == Patient.CODE_W) {
-                assessmentQueue.add(arrivalEvent.getPatient());
-            } else if (patientType.get(i) == Patient.CODE_E) {
-                waitingQueue.add(arrivalEvent.getPatient());
-            } else {
-                System.out.println("ERROR: simulation.Patient has unknown type. Using W as a result.");
-                assessmentQueue.add(arrivalEvent.getPatient());
+        ArrayList<Event> currentClockCycleEvents = new ArrayList<>();
+        boolean run = true;
+        while(run){
+
+            //Assessment Events
+            if (!assessmentQueue.isEmpty()) {
+                assessmentQueue.get(0).setShouldStart(true);
+
             }
 
-        }
-        /**
-         * Move AssessmentEvents forward.
-         * If there are no patients being assessed and there is someone in queue, asses them.
-         * Only one patient can assessed at a time.
-         */
-        //Assessment Events
-        if (!assessmentQueue.isEmpty() && currentAssessmentEvent == null) {
-            currentAssessmentEvent = new AssessmentEvent(assessmentQueue.getHead().getPatient());
-            currentAssessmentEvent.start();
-        }
-
-        //StartTreatment Events
-        if (treatmentRooms.anyRoomAvailable() && !waitingQueue.isEmpty()) {
-            try {
-                StartTreatmentEvent startTreatmentEvent = new StartTreatmentEvent(waitingQueue.remove());
-                currentStartTreatmentEvents[treatmentRooms.getRoomAvailable()] = startTreatmentEvent;
-                treatmentRooms.placePatient(treatmentRooms.getRoomAvailable(), startTreatmentEvent);
-                startTreatmentEvent.start();
-            } catch (Exception e) {
-                e.printStackTrace();
+            //StartTreatment Events
+            if (treatmentRooms.anyRoomAvailable() && !waitingQueue.isEmpty()) {
+                waitingQueue.getEvent(0).setShouldStart(true);
             }
-        }
 
-        //AdmittingToHospital Event
-        ArrayList<Patient> priority1Patients = treatmentRooms.getDonePriority1Patients();
-        if (treatmentRooms.anyRoomBeingUsed() && admissionNurseAvailable && !priority1Patients.isEmpty()) { //should be treatment rooms
-            Patient temp = priority1Patients.get(0);
-            if (priority1Patients.size() > 1) {//gets priority 1 patient that has waited the longest
-                for (Patient patient : priority1Patients) {
-                    if (patient.getWaitingTime() > temp.getWaitingTime()) {
-                        temp = patient;
+            //AdmittingToHospital Event
+            ArrayList<Patient> priority1Patients = treatmentRooms.getDonePriority1Patients();
+            if (treatmentRooms.anyRoomBeingUsed()
+                    && !priority1Patients.isEmpty()) {
+                Patient temp = priority1Patients.get(0);
+                if (priority1Patients.size() > 1) {//gets priority 1 patient that has waited the longest
+                    for (Patient patient : priority1Patients) {
+                        if (patient.getWaitingTime() > temp.getWaitingTime()) {
+                            temp = patient;
+                        }
                     }
                 }
-            }
-            admissionNurseAvailable = false;
-            currentAdmittingToHospitalEvent = new AdmittingToHospitalEvent(temp); //gets patient waiting in treatment room
-            currentAdmittingToHospitalEvent.start();
-        }
-
-        //Departure Events
-        //If any room is occupied...
-        if (treatmentRooms.anyRoomBeingUsed()) {
-            //...Create new departures
-            StartTreatmentEvent[] treatmentEvents = treatmentRooms.getTreatmentEvents();
-            for (StartTreatmentEvent event : treatmentEvents) {
-                if (event != null && event.isDone() && event.getPatient().getPriority() != 1 && !currentDepartureEvents.contains(event)) {
-                    DepartureEvent departureEvent = new DepartureEvent(event.getPatient());
-                    currentDepartureEvents.add(departureEvent);
-                    departureEvent.start();
-
+                if(temp.getCurrentEvent()==null){
+                    temp.setCurrentEvent(new AdmittingToHospitalEvent(temp));
+                    temp.getCurrentEvent().setShouldStart(true);
+                } else {
+                    temp.getCurrentEvent().setShouldStart(true);
                 }
             }
+
+
+            for(Event event: Event.events){
+                if(((event.shouldFinish() && !event.isDone()) || (event.shouldStart() && !event.hasStarted())) && !currentClockCycleEvents.contains(event)){
+                    currentClockCycleEvents.add(event);
+                }
+            }
+
+            if(!currentClockCycleEvents.isEmpty()){
+                currentClockCycleEvents.sort(Comparator.comparing(l->l.getPatient().getPatientNumber()));
+                Event currentEvent = currentClockCycleEvents.get(0);
+                if(currentEvent.shouldFinish()) {
+                    currentEvent.finish();
+                } else {
+                    currentEvent.start();
+                }
+                currentClockCycleEvents.remove(currentEvent);
+            } else {
+                run = false;
+            }
+
+
         }
+
+        increaseWaitingTimes();
     }
 
-    private static void processDoneEvents() {
-
-        //Assessment Events
-        if (currentAssessmentEvent != null && currentAssessmentEvent.isDone()) {
-            System.out.println(currentAssessmentEvent);
-            waitingQueue.add(currentAssessmentEvent.getPatient());
-            assessmentQueue.remove();
-            currentAssessmentEvent = null;
-        }
-
-        //StartTreatment Events
-        for (int i = 0; i < currentStartTreatmentEvents.length; i++) {
-            if (currentStartTreatmentEvents[i] != null && currentStartTreatmentEvents[i].isDone()) {
-                System.out.println(currentStartTreatmentEvents[i].toString());
-                currentStartTreatmentEvents[i] = null;
-
-                //TODO: End treatment event
-            }
-        }
-
-        //AdmittingToHospital
-        if ((currentAdmittingToHospitalEvent == null || currentAdmittingToHospitalEvent.isDone()) && treatmentRooms.anyRoomBeingUsed()) {
-            //If patient admitted to hospital
-            if (currentAdmittingToHospitalEvent != null && currentAdmittingToHospitalEvent.isDone()) {
-                System.out.println(currentAdmittingToHospitalEvent.toString());
-                admissionNurseAvailable = true;
-                currentDepartureEvents.add(new DepartureEvent(currentAdmittingToHospitalEvent.getPatient()));
-            }
-        }
-
-        // Remove and print finished departures
-        for (int i = 0; i < currentDepartureEvents.size(); i++) {
-            if (currentDepartureEvents.get(i).isDone()) {
-                treatmentRooms.releasePatient(currentDepartureEvents.get(i).getPatient());
-                currentDepartureEvents.get(i).getPatient().setDepartureTime(getCurrentClockTime());
-                System.out.println(currentDepartureEvents.get(i));
-                currentDepartureEvents.remove(i);
-            }
-        }
-    }
 
     private static void increaseWaitingTimes() {
         //Increase waiting time for everyone that is treated and waiting to be admitted. (i = 0 is currently being assessed so skip it)
         for (int i = 1; i < assessmentQueue.size(); i++) {
-            assessmentQueue.get(i).increaseWaitingTime();
+            assessmentQueue.get(i).getPatient().increaseWaitingTime();
         }
         //Increase waiting time for everyone that is not being assessed. (i = 0 is currently being assessed so skip it)
-        for (int i = 1; i < waitingQueue.size(); i++) {
-            waitingQueue.get(i).increaseWaitingTime();
+        for (int i = 0; i < waitingQueue.size(); i++) {
+            waitingQueue.getPatient(i).increaseWaitingTime();
         }
 
         //this increases wait time of priority 1 patients that are in the treatment room and are not addmitted
         for (Patient patient : treatmentRooms.getDonePriority1Patients()) {
-            if (patient != currentAdmittingToHospitalEvent.getPatient()) {
+            if (patient.getCurrentEvent() == null) {
                 patient.increaseWaitingTime();
             }
         }
