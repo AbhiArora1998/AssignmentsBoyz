@@ -2,6 +2,8 @@ package events;
 
 import simulation.Patient;
 
+import static simulation.Clock.getCurrentClockTime;
+
 public class AssessmentEvent extends Event {
 
     private static final int ASSESSMENT_PROCESSING_TIME = 4;
@@ -23,10 +25,10 @@ public class AssessmentEvent extends Event {
     @Override
     public String toString() {
         if(!isDone()){
-            return "Time " + startTime + ":  " + patient.getPatientNumber()
+            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
                     + " starts assessment (waited " + patient.getWaitingTime() +")";
         } else {
-            return "Time " + (startTime + processingTime) + ":  " + patient.getPatientNumber()
+            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
                     + " assessment completed (Priority now " + patient.getPriority() +")";
         }
 
