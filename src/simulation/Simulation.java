@@ -55,10 +55,13 @@ public final class Simulation {
 
         handleArrivalEvents(patientType, processingTime);
         handleAssessmentEvents();
-        handleStartTreatmentEvents();
         handleAdmittingToHospitalEvents();
         handleDepartureEvents();
-        System.out.println("Time  " + getCurrentClockTime() + ": " + Arrays.toString(currentStartTreatmentEvents));
+        handleStartTreatmentEvents();
+//        System.out.println("Time  " + getCurrentClockTime() + ": ST" + Arrays.toString(currentStartTreatmentEvents));
+//        if(currentAssessmentEvent != null){
+//            System.out.println("Time  " + getCurrentClockTime() + ": A" + currentAssessmentEvent.toString());
+//        }
 
     }
 
@@ -91,6 +94,14 @@ public final class Simulation {
      *
      */
     private static void handleStartTreatmentEvents() {
+        for (int i = 0; i < currentStartTreatmentEvents.length; i++) {
+            if (currentStartTreatmentEvents[i] != null && currentStartTreatmentEvents[i].isDone()) {
+                System.out.println(currentStartTreatmentEvents[i].toString());
+                currentStartTreatmentEvents[i] = null;
+
+                //TODO: End treatment event
+            }
+        }
         //Assess 1 patient in queue if no patient is being assessed currently.
         if (treatmentRooms.anyRoomAvailable() && !waitingQueue.isEmpty()) {
             //print result if patient is done and add them to waiting queue
@@ -104,13 +115,7 @@ public final class Simulation {
                 e.printStackTrace();
             }
         }
-        for (int i = 0; i < currentStartTreatmentEvents.length; i++) {
-            if (currentStartTreatmentEvents[i] != null && currentStartTreatmentEvents[i].isDone()) {
-                System.out.println(currentStartTreatmentEvents[i].toString());
-                currentStartTreatmentEvents[i] = null;
-                //TODO: End treatment event
-            }
-        }
+
         //Increase waiting time for everyone that is not being assessed. (i = 0 is currently being assessed so skip it)
         for (int i = 1; i < waitingQueue.size(); i++) {
             waitingQueue.get(i).increaseWaitingTime();
@@ -182,6 +187,7 @@ public final class Simulation {
                 currentDepartureEvents.remove(i);
             }
         }
+
     }
 
     /**
