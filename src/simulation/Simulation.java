@@ -21,6 +21,7 @@ import queues.TreatmentRooms;
 import queues.WaitingQueue;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static simulation.Clock.getCurrentClockTime;
 
@@ -57,6 +58,8 @@ public final class Simulation {
         handleStartTreatmentEvents();
         handleAdmittingToHospitalEvents();
         handleDepartureEvents();
+        System.out.println("Time  " + getCurrentClockTime() + ": " + Arrays.toString(currentStartTreatmentEvents));
+
     }
 
     /**
@@ -125,7 +128,6 @@ public final class Simulation {
                 System.out.println(currentAdmittingToHospitalEvent.toString());
                 admissionNurseAvailable = true;
                 currentDepartureEvents.add(new DepartureEvent(currentAdmittingToHospitalEvent.getPatient()));
-                treatmentRooms.releasePatient(currentAdmittingToHospitalEvent.getPatient());
             }
 
             ArrayList<Patient> priority1Patients = treatmentRooms.getDonePriority1Patients();
