@@ -22,7 +22,9 @@ public class TreatmentCompletedEvent extends Event {
         super();
         this.patient = patient;
 
-        // This Event has no duration as it is merely bridging
+        /* This Event has no duration as it is merely bridging a gap between StartTreatmentEvent and
+        the next selected phase
+         */
         processingTime = 0;
     }
 

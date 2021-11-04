@@ -14,10 +14,19 @@ import events.Event;
 
 import java.util.ArrayList;
 import java.util.Random;
-/*
-patient class provides the patientNumber, the priority and the treatment time it require according to the patient
-it then stores the person into the ArrayList
+
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assignment 1 Fall 2021
+ *
+ * patient class provides the patientNumber, the priority and the treatment time it require according to the patient
+ * it then stores the person into the ArrayList
+ *
+ * @author The Boyz
+ * @version 1
  */
+
+
 public class Patient {
 
     public static final char CODE_W = 'W', CODE_E = 'E';

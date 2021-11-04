@@ -28,6 +28,9 @@ public class ArrivalEvent extends Event {
         patient = new Patient(startTime, patientType, treatmentTime);
     }
 
+    /**
+     * Starts ArrivalEvent
+     */
     @Override
     public void start() {
         super.start();
@@ -35,6 +38,10 @@ public class ArrivalEvent extends Event {
         shouldStart = false;
     }
 
+    /**
+     * Records patient arrival time, places walk-in patients in the assessment line, places emergency patients in the
+     * waiting room and records their assessment time immediately, and prints a report of what patient is undergoing
+     */
     @Override
     public void finish() {
         patient.setArrivalTime(getCurrentClockTime());
@@ -56,6 +63,10 @@ public class ArrivalEvent extends Event {
         isDone = true;
     }
 
+    /**
+     * Returns a String reporting the current time, patient number, and what type of patient is arriving
+     * @return The current time, patient number, and what type of patient is arriving
+     */
     @Override
     public String toString() {
         if (patient.getType() == Patient.CODE_E){

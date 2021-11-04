@@ -69,7 +69,7 @@ public class AssessmentEvent extends Event {
     /**
      * Returns a String reporting the current time, patient number and what the patient is undergoing. If done
      * assessment, returns the priority of the patient.
-     * @return The current time, patient number and priority, and what the patient is undergoing
+     * @return The current time, patient number, and what the patient is undergoing
      */
     @Override
     public String toString() {
