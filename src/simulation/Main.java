@@ -31,10 +31,9 @@ public class Main {
             System.out.println("Please enter input file name: ");
             String dataFileName = inputReader.nextLine(); //get file name
             File dataFile = new File(dataFileName);
-            //System.out.println(dataFile.getAbsolutePath()); //file location
             /*
             checks to see if the file exists and readable then
-            save the input in the fileInput
+            saves the input in the fileInput
              */
             if (dataFile.canRead()) {
                 fileInput = new Scanner(dataFile);
@@ -63,14 +62,8 @@ public class Main {
                 run = false;
             }
 
-
-
             patientTypeArray = new ArrayList<>();
             processingTimeArray = new ArrayList<>();
-
-            //Debug:
-            //System.out.println("CLOCK: " + Clock.getCurrentClockTime());
-            //End Debug
 
             while (Clock.getCurrentClockTime() == arrivalTime && scanFile) {
                 if(!fileInput.hasNextLine()){// if the next line does not exit then it stops reading the textFile
@@ -91,20 +84,12 @@ public class Main {
                 } else {
                     break;
                 }
-
             }
-
             Simulation.doOneClockCycle(patientTypeArray, processingTimeArray);
-
             Clock.advanceClock();
-
         }
-        //System.out.println(Simulation.getWaitingQueue().toString());
-
         System.out.println("\n...All events complete. Final Summary:\n");
-
         String format = " %10d  %10d  %10d  %10d  %10d  %10s  %10d %n";
-
         System.out.format("    Patient    Priority     Arrival  Assessment   Treatment   Departure     Waiting %n");
         System.out.format("     Number                    Time        Time    Required        Time        Time %n");
         System.out.format("------------------------------------------------------------------------------------%n");
@@ -121,11 +106,8 @@ public class Main {
                     patient.getWaitingTime());
             sum += patient.getWaitingTime();
         }
-
         System.out.println("\n Patients seen in total: " + Patient.patients.size());
-
         System.out.println(" Average waiting time per patient: "+ sum/(float)Patient.patients.size());
-
         System.out.println("\n----");
     }
 }

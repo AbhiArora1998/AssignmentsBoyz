@@ -34,10 +34,6 @@ public abstract class Event implements EventActions {
         return isDone;
     }
 
-    public int getExpectedEndingTime() {
-        return expectedEndingTime;
-    }
-
     public Patient getPatient(){
         return patient;
     }

@@ -33,7 +33,6 @@ public class Patient {
     private int arrivalTime; //When did the patient arrived
     private int waitingTime;
     private int assessmentTime;
-    private int admittingHospitalTime;
     private int assessmentCompletedTime;
     private int finishTreatmentTime;
     private int departureTime;
@@ -60,7 +59,6 @@ public class Patient {
         } else {
             this.priority = priority;
         }
-
         patients.add(this);
     }
 
@@ -81,7 +79,6 @@ public class Patient {
         } else {
             this.priority = random.nextInt(5)+1;
         }
-
         patients.add(this);
     }
 
@@ -101,10 +98,6 @@ public class Patient {
         return priority;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public int getArrivalTime() {
         return arrivalTime;
     }
@@ -115,10 +108,6 @@ public class Patient {
 
     public int getTreatmentTime() {
         return treatmentTime;
-    }
-
-    public void setTreatmentTime(int treatmentTime) {
-        this.treatmentTime = treatmentTime;
     }
 
     @Override
@@ -156,11 +145,8 @@ public class Patient {
 
     public void setFinishTreatmentTime(int finishTreatmentTime) {this.finishTreatmentTime = finishTreatmentTime;}
 
-    public void setAdmittingToHospitalTime(int assessmentTime) {
-        this.admittingHospitalTime = assessmentTime;
-    }
-
     public int getDepartureTime(){return departureTime;}
+
     public void setDepartureTime(int time){departureTime = time;}
 
     public Event getCurrentEvent() {

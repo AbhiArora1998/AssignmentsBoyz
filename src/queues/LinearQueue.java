@@ -10,13 +10,10 @@ package queues;
  * Student Number: 230140171
  * @version 1
  */
-
 public class LinearQueue<T> {
     private Node<T> head;
 
-    public LinearQueue() {
-        /* empty */
-    }
+    public LinearQueue() {}/* empty */
 
     /**
      * Adds an obj to the back of the assessment line

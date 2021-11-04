@@ -3,8 +3,6 @@ package queues;
 import events.Event;
 import simulation.Patient;
 
-import static simulation.Clock.getCurrentClockTime;
-
 /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -63,7 +61,6 @@ public class WaitingQueue {
                     return;
                 }
             }
-
             // At this point, we know that the spot for the new event is between temp and temp.getNext()
             newPatientNode.setNext(temp.getNext());
             temp.setNext(newPatientNode);

@@ -25,7 +25,6 @@ public class StartTreatmentEvent extends Event {
             System.out.println(this);
         }
             shouldStart = false;
-
     }
 
     @Override
