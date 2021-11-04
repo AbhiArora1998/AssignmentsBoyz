@@ -1,40 +1,38 @@
 package events;
 
 import simulation.Patient;
-import simulation.Simulation;
 
 import static simulation.Clock.getCurrentClockTime;
 import static simulation.Simulation.treatmentRooms;
 import static simulation.Simulation.waitingQueue;
 
-public class StartTreatmentEvent extends Event {
+public class TreatmentCompletedEvent extends Event {
 
-    public StartTreatmentEvent(Patient patient) {
+    public TreatmentCompletedEvent(Patient patient) {
         super();
         this.patient = patient;
-        processingTime = patient.getTreatmentTime();
+        processingTime = 0;
     }
 
     @Override
     public void start(){
-        if(treatmentRooms.anyRoomAvailable()){
-            super.start();
-            treatmentRooms.placePatient(treatmentRooms.getRoomAvailable(), this);
-            patient.setCurrentEvent(this);
-            waitingQueue.remove();
-            System.out.println(this);
-        }
-            shouldStart = false;
+        super.start();
+        patient.setCurrentEvent(this);
+        System.out.println(this);
 
+        if(patient.getPriority() != Patient.HIGHEST_PRIORITY){
+            patient.setCurrentEvent(new DepartureEvent(patient));
+            patient.getCurrentEvent().setShouldStart(true);
+        }
+
+        shouldStart = false;
     }
 
     @Override
     public void finish() {
         patient.setCurrentEvent(null);
         isDone = true;
-
-        TreatmentCompletedEvent treatmentCompletedEvent = new TreatmentCompletedEvent(patient);
-        treatmentCompletedEvent.setShouldStart(true);
+        System.out.println(this);
     }
 
     @Override
