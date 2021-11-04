@@ -36,7 +36,6 @@ public class TreatmentCompletedEvent extends Event {
     public void start(){
         super.start();
         patient.setCurrentEvent(this);
-        System.out.println(this);
 
         // Gives patients with priority 2-5 the DepartureEvent
         if(patient.getPriority() != Patient.HIGHEST_PRIORITY){
@@ -63,23 +62,10 @@ public class TreatmentCompletedEvent extends Event {
      */
     @Override
     public String toString() {
-        if(isDone()){
+
             patient.setFinishTreatmentTime(getCurrentClockTime());
             return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
                     + " (Priority " + patient.getPriority() + ") finishes treatment";
-        } else if (hasStarted && startTime == getCurrentClockTime()){
-            return "Time " + startTime + ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() + ") starts treatment"
-                    + " (waited " + (getCurrentClockTime()- patient.getAssessmentCompletedTime())//(getCurrentClockTime() - patient.getAssessmentTime()) + " START TREATMENT EVENT assessetime " + patient.getAssessmentTime()
-                    + ", "+ treatmentRooms.roomsAvailable() + " rm(s) remain)";
-        } else if (hasStarted){
-            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
-                    + " is STILL being treated (time remaining: " + (processingTime - (getCurrentClockTime() - startTime) + ").");
-        } else {
-            return "Time " + startTime + ":  " + patient.getPatientNumber()
-                    + " (Priority " + patient.getPriority() + ") is WAITING for treatment"
-                    + " (waited " + patient.getWaitingTime()
-                    + ", "+ treatmentRooms.roomsAvailable() + " rm(s) remain)";
-        }
+
     }
 }
