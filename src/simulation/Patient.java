@@ -53,7 +53,7 @@ public class Patient {
         this.treatmentTime = treatmentTime;
         waitingTime = 0;
 
-        //If the patient arrived in an emergency, make them top priority
+        //If the patient arrived in an emergency, makes them top priority
         if(type == CODE_E){
             priority = HIGHEST_PRIORITY;
         } else {

@@ -1,15 +1,17 @@
 package events;
 
 import simulation.Patient;
-
 import java.util.ArrayList;
-
 import static simulation.Clock.getCurrentClockTime;
 
-/*
-This class takes care of the event that happen in the hospital simulation
-
-
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assignment 1 Fall 2021
+ *
+ * This class takes care of the event that happen in the hospital simulation
+ *
+ * @author The Boyz
+ * @version 1
  */
 public abstract class Event implements EventActions {
 
