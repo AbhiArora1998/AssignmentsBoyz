@@ -1,7 +1,5 @@
 package queues;
 
-import simulation.Patient;
-
 /**
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -13,7 +11,6 @@ import simulation.Patient;
  * Student Number: 230140171
  * @version 1
  */
-
 public class Node<T> {
     private final T obj;
     private Node<T> next;

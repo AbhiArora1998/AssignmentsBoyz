@@ -2,10 +2,7 @@ package queues;
 
 import events.StartTreatmentEvent;
 import simulation.Patient;
-
 import java.util.ArrayList;
-
-import static simulation.Simulation.waitingQueue;
 
 /**
  * This file is part of a solution to
@@ -169,7 +166,6 @@ public class TreatmentRooms {
                 patients.add(room.patient);
             }
         }
-
         return patients;
     }
 

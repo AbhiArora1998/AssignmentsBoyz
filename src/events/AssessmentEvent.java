@@ -1,7 +1,6 @@
 package events;
 
 import simulation.Patient;
-import simulation.Simulation;
 
 import static simulation.Clock.getCurrentClockTime;
 import static simulation.Simulation.*;
@@ -28,8 +27,6 @@ public class AssessmentEvent extends Event {
             patient.setCurrentEvent(this);
         }
             shouldStart = false;
-
-
     }
 
     @Override
@@ -41,7 +38,6 @@ public class AssessmentEvent extends Event {
         isDone = true;
         System.out.println(this);
         System.out.println("Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Priority " + patient.getPriority() + ") enters waiting room");
-
     }
 
     @Override
@@ -62,13 +58,5 @@ public class AssessmentEvent extends Event {
                     + " (Priority " + patient.getPriority() + ") is WAITING to be assessed"
                     + " (waited " + patient.getWaitingTime() + ")";
         }
-    }
-
-    public static AssessmentEvent getCurrentEvent() {
-        return currentEvent;
-    }
-
-    public static void setCurrentEvent(AssessmentEvent currentEvent) {
-        AssessmentEvent.currentEvent = currentEvent;
     }
 }

@@ -1,8 +1,6 @@
 package events;
 
 import simulation.Patient;
-import simulation.Simulation;
-
 import static simulation.Clock.getCurrentClockTime;
 
 public class AdmittingToHospitalEvent extends Event {
@@ -20,13 +18,9 @@ public class AdmittingToHospitalEvent extends Event {
     public void start(){
         if(currentAdmittingToHospitalEvent == null){
             super.start();
-            patient.setAdmittingToHospitalTime(getCurrentClockTime());
             patient.setCurrentEvent(this);
-
         }
             shouldStart = false;
-
-
     }
 
     @Override
@@ -46,13 +40,5 @@ public class AdmittingToHospitalEvent extends Event {
             return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber()
                     + " (Priority " + patient.getPriority() + ", waited " + (getCurrentClockTime() - (patient.getFinishTreatmentTime()+ADMITTING_PROCESSING_TIME)) + ") admitted to Hospital";
         }
-    }
-
-    public static AdmittingToHospitalEvent getCurrentAdmittingToHospitalEvent() {
-        return currentAdmittingToHospitalEvent;
-    }
-
-    public static void setCurrentAdmittingToHospitalEvent(AdmittingToHospitalEvent currentAdmittingToHospitalEvent) {
-        AdmittingToHospitalEvent.currentAdmittingToHospitalEvent = currentAdmittingToHospitalEvent;
     }
 }

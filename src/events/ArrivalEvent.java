@@ -8,14 +8,10 @@ import static simulation.Simulation.waitingQueue;
 
 public class ArrivalEvent extends Event {
 
-    private final char patientType;
-    private final int treatmentTime;
     private static final int ARRIVAL_PROCESSING_TIME = 0;
 
     public ArrivalEvent(char patientType, int treatmentTime) {
         super();
-        this.patientType = patientType;
-        this.treatmentTime = treatmentTime;
         this.processingTime = ARRIVAL_PROCESSING_TIME;
         patient = new Patient(startTime, patientType, treatmentTime);
     }
@@ -46,7 +42,6 @@ public class ArrivalEvent extends Event {
             System.out.println("Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Priority " + patient.getPriority() + ") enters waiting room");
         }
         isDone = true;
-
     }
 
     @Override

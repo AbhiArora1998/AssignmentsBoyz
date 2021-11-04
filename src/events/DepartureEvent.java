@@ -1,7 +1,6 @@
 package events;
 
 import simulation.Patient;
-import simulation.Simulation;
 
 import static simulation.Clock.getCurrentClockTime;
 import static simulation.Simulation.treatmentRooms;
@@ -41,8 +40,6 @@ public class DepartureEvent extends Event {
 
     @Override
     public void finish() {
-
-
         isDone = true;
         patient.setCurrentEvent(null);
         treatmentRooms.releasePatient(patient);

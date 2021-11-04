@@ -3,9 +3,7 @@ package simulation;
 public final class Clock {
     private static int time =0;
 
-    private Clock(){
-        /* empty */
-    }
+    private Clock(){}//Empty
 
     public static void advanceClock(){
         time++;

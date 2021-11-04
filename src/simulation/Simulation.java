@@ -15,11 +15,8 @@ import events.*;
 import queues.LinearQueue;
 import queues.TreatmentRooms;
 import queues.WaitingQueue;
-
 import java.util.ArrayList;
 import java.util.Comparator;
-
-import static simulation.Clock.getCurrentClockTime;
 
 public final class Simulation {
 
@@ -55,7 +52,6 @@ public final class Simulation {
             //Assessment Events
             if (!assessmentQueue.isEmpty()) {
                 assessmentQueue.get(0).setShouldStart(true);
-
             }
 
             //StartTreatment Events
@@ -83,7 +79,6 @@ public final class Simulation {
                 }
             }
 
-
             for(Event event: Event.events){
                 if(((event.shouldFinish() && !event.isDone()) || (event.shouldStart() && !event.hasStarted())) && !currentClockCycleEvents.contains(event)){
                     currentClockCycleEvents.add(event);
@@ -103,7 +98,6 @@ public final class Simulation {
                 run = false;
             }
         }
-
         increaseWaitingTimes();
     }
 
@@ -125,7 +119,4 @@ public final class Simulation {
             }
         }
     }
-
-
-
 }
