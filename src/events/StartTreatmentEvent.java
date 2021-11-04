@@ -36,7 +36,7 @@ allowing patient to be removed room from the waiting queue
      * If there is a treatment room available at this time, this event starts, the patient is put into a treatment room,
      * the patient is removed from the waiting room, and a report of this event is printed.
      */
- */
+
     @Override
     public void start(){
         if(treatmentRooms.anyRoomAvailable()){
