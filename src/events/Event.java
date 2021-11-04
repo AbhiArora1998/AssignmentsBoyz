@@ -23,20 +23,22 @@ public abstract class Event implements EventActions {
     protected boolean isDone = false;
     protected Patient patient;
     public static ArrayList<Event> events = new ArrayList<>();
-/*
-This Constructor adds the event happened into the arrayList
-setting boolean values of event to false initially
- */
+
+    /**
+     * This Constructor adds the event happened into the arrayList
+     * setting boolean values of event to false initially
+     */
     protected Event(){
         events.add(this);
         hasStarted = false;
         shouldStart = false;
     }
-/*
-This class allows the event to start
-Takes the current clock time when the event started
-Set the startedEvent to true.
- */
+
+    /**
+     * This method allows the event to start
+     * Takes the current clock time when the event started
+     * Set the startedEvent to true.
+     */
     public void start() {
         startTime = getCurrentClockTime();
         expectedEndingTime = startTime+processingTime;
