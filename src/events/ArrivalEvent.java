@@ -7,10 +7,13 @@ import static simulation.Simulation.assessmentQueue;
 import static simulation.Simulation.waitingQueue;
 /**
  * This file is part of a solution to
- *		CPSC300 Assignment 1 Fall 2021
- *
+ * CPSC300 Assignment 1 Fall 2021
+ * <p>
  * This class takes care of the arrival event that happens in the hospital simulation
- * Patients are created and given All patients undergo the arrival event
+ * Patients are created and given their startTime, patientType and treatment time
+ * Also Displays if walk-in or emergency has arrived
+ * walk-in patients are put in the
+ * Event finishes when patient enters waiting room
  *
  * @author The Boyz
  * @version 1

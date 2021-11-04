@@ -3,6 +3,7 @@ package events;
 import simulation.Patient;
 
 import static simulation.Clock.getCurrentClockTime;
+import static simulation.Patient.HIGHEST_PRIORITY;
 import static simulation.Simulation.treatmentRooms;
 
 /**
@@ -22,7 +23,7 @@ public class DepartureEvent extends Event {
 
     public DepartureEvent(Patient patient) {
         super();
-        if(patient.getPriority() == 1){
+        if(patient.getPriority() == HIGHEST_PRIORITY){
             processingTime = DEPARTURE_PROCESSING_TIME_PRIORITY1;
         } else {
             processingTime = DEPARTURE_PROCESSING_TIME_OTHER_PRIORITIES;

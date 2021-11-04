@@ -4,6 +4,8 @@ import events.StartTreatmentEvent;
 import simulation.Patient;
 import java.util.ArrayList;
 
+import static simulation.Patient.HIGHEST_PRIORITY;
+
 /**
  * This file is part of a solution to
  * CPSC300 Assignment 1 Problem 1 Fall 2021
@@ -162,7 +164,7 @@ public class TreatmentRooms {
     public ArrayList<Patient> getDonePriority1Patients() {
         ArrayList<Patient> patients = new ArrayList<>();
         for (Room room : rooms) {
-            if (room.patient != null && room.patient.getPriority() == 1 && room.treatmentEvent.isDone()) {
+            if (room.patient != null && room.patient.getPriority() == HIGHEST_PRIORITY && room.treatmentEvent.isDone()) {
                 patients.add(room.patient);
             }
         }

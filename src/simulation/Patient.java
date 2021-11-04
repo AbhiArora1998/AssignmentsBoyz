@@ -75,7 +75,7 @@ public class Patient {
 
         //If the patient arrived in an emergency, make them top priority
         if(type == CODE_E){
-            priority = 1;
+            priority = HIGHEST_PRIORITY;
         } else {
             this.priority = random.nextInt(5)+1;
         }

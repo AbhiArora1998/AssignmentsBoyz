@@ -15,11 +15,9 @@ the class takes the input from the text file that we have created
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Problem 1 Fall 2021
  *
- * Implements a place in line for a patient to wait. Each queues.PatientNode stores
- * the patient behind them while in a line.
+ * This finds and reads a given text file
  *
- * @author Noah Stobbe
- * Student Number: 230140171
+ * @author The Boyz
  * @version 1
  */
 public class Main {
@@ -62,7 +60,6 @@ public class Main {
                     !scanFile){
                 run = false;
             }
-
             patientTypeArray = new ArrayList<>();
             processingTimeArray = new ArrayList<>();
 
@@ -95,7 +92,7 @@ public class Main {
         System.out.format("     Number                    Time        Time    Required        Time        Time %n");
         System.out.format("------------------------------------------------------------------------------------%n");
         float sum= 0;
-        Patient.patients.sort(Comparator.comparing(Patient::getPriority));
+        Patient.patients.sort(Comparator.comparing(Patient::getPriority)); //This organizes the patient based on priority
         for (Patient patient: Patient.patients) {
             System.out.format(format,
                     patient.getPatientNumber(),
