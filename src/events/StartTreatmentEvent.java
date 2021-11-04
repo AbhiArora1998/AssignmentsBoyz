@@ -20,17 +20,23 @@ import static simulation.Simulation.waitingQueue;
  */
 
 public class StartTreatmentEvent extends Event {
-
+/*
+Constructor gets the info from the event class starts processing time that patient will spend in the treatment room
+ */
     public StartTreatmentEvent(Patient patient) {
         super();
         this.patient = patient;
         processingTime = patient.getTreatmentTime();
     }
+/*
+It checks if the room is available in the treatment room before we start the treatment
+allowing patient to be removed room from the waiting queue
 
     /**
      * If there is a treatment room available at this time, this event starts, the patient is put into a treatment room,
      * the patient is removed from the waiting room, and a report of this event is printed.
      */
+ */
     @Override
     public void start(){
         if(treatmentRooms.anyRoomAvailable()){
@@ -52,6 +58,11 @@ public class StartTreatmentEvent extends Event {
     /**
      * Initialize a TreatmentCompletedEvent and start it
      */
+/*
+    This method sets the current patient to null
+    and setting the patient status isDone to be true
+    and adding them to be in treatmentCompletedEvent
+ */
     @Override
     public void finish() {
         patient.setCurrentEvent(null);
@@ -60,6 +71,9 @@ public class StartTreatmentEvent extends Event {
         TreatmentCompletedEvent treatmentCompletedEvent = new TreatmentCompletedEvent(patient);
         treatmentCompletedEvent.setShouldStart(true);
     }
+/*
+It prints time, patient , waiting time, priority into a string
+ */
 
     /**
      * Returns a String reporting the current time, patient number and priority, and what the patient is undergoing

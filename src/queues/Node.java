@@ -10,6 +10,7 @@ package queues;
  * @author The Boyz
  * @version 1
  */
+
 public class Node<T> {
     private final T obj;
     private Node<T> next;
