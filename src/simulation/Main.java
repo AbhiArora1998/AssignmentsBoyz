@@ -6,20 +6,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
-/*
-the class takes the input from the text file that we have created
-
- */
-
 /**
  * This file is part of a solution to
- *		CPSC300 Assignment 1 Problem 1 Fall 2021
+ *		CPSC300 Assignment 1 Fall 2021
  *
  * This finds and reads a given text file
  *
  * @author The Boyz
  * @version 1
  */
+
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner inputReader = new Scanner(System.in);
