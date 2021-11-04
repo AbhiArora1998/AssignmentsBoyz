@@ -9,9 +9,8 @@ import static simulation.Simulation.*;
  * This file is part of a solution to
  *		CPSC300 Assignment 1 Fall 2021
  *
- * This class specifically works with the treatment room
- * it checks if the rooms are available
- * It lets patient enter the treatment room
+ * Records the time the patient gets assessed, prints a report of assessment, removes the patient from the assessment
+ * line and adds them to the waiting room, and prints a report that the patient has been assessed.
  *
  * @author The Boyz
  * @version 1
