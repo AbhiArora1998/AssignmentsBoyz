@@ -10,15 +10,19 @@ package queues;
  * @author The Boyz
  * @version 1
  */
-/*
-This class has objects and the node that will help us point to the next one.
+
+/**
+ * This class has objects and the node that will help us point to the next one.
+ * @param <T>
  */
 public class Node<T> {
     private final T obj;
     private Node<T> next;
-/*
-Sets the nodes object to the current object that it will point to
- */
+
+    /**
+     * Sets the nodes object to the current object that it will point to
+     * @param obj
+     */
     public Node(T obj) {
         this.obj = obj;
     }
@@ -33,10 +37,11 @@ Sets the nodes object to the current object that it will point to
     public Node<T> getNext() {
         return next;
     }
-/*
-sets the value of next to the new node
-@param sets the next node to new Patient
- */
+
+    /**
+     * sets the value of next to the new node
+     * @param next sets the next node to new Patient
+     */
     public void setNext(Node<T> next) {
         this.next = next;
     }
