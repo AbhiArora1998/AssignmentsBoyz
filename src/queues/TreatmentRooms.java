@@ -21,32 +21,35 @@ public class TreatmentRooms {
 
     static private Room[] rooms;
 
-/*
-This in class checks if the room is free initiates the start event
- */
+    /**
+     * This in class checks if the room is free initiates the start event
+     */
     static class Room {
         public boolean isFree;
         public Patient patient;
         public StartTreatmentEvent treatmentEvent;
-/*
-constructor justs calls the clear method
- */
+
+        /**
+         * constructor justs calls the clear method
+         */
         public Room() {
             clear();
         }
-/*
- it is letting waiting queue know that the room is free and there is no event in the room
- */
+
+        /**
+         * it is letting waiting queue know that the room is free and there is no event in the room
+         */
         public void clear() {
             isFree = true;
             patient = null;
             treatmentEvent = null;
         }
 
-/*
-it adds the patient for the startTreatment event
-and gets the info of that patient object and sets the room to be engaged
- */
+        /**
+         * it adds the patient for the startTreatment event
+         * and gets the info of that patient object and sets the room to be engaged
+         * @param treatmentEvent
+         */
         public void addPatient(StartTreatmentEvent treatmentEvent) {
             this.treatmentEvent = treatmentEvent;
             this.patient = treatmentEvent.getPatient();
@@ -56,7 +59,7 @@ and gets the info of that patient object and sets the room to be engaged
 
 
     /**
-     * This constructor set all the room to be free with no patient when initialised
+     * This constructor sets all the room to be free with no patient when initialised
      */
     public TreatmentRooms(int numberOfTreatmentRooms) {
         rooms = new Room[numberOfTreatmentRooms];
@@ -98,9 +101,11 @@ and gets the info of that patient object and sets the room to be engaged
         }
         return available;
     }
-/*
-it checks if the room is busy or not
- */
+
+    /**
+     * it checks if the room is busy or not
+     * @return
+     */
     public boolean anyRoomBeingUsed() {
         boolean used = false;
         for (Room room : rooms) {
@@ -153,10 +158,14 @@ it checks if the room is busy or not
             return null;
         }
     }
-/*
-It release the patient from the treatmentRoom
-and the sets the room to be free and removes the patient from the room
- */
+
+    /**
+     * It release the patient from the treatmentRoom
+     * and the sets the room to be free and removes the patient from the room
+     * @param patient
+     * @return If a room is cleared successfully (a room contained the corresponding patient
+     *         when this method was called)
+     */
     public boolean releasePatient(Patient patient) {
 
         for (Room room : rooms) {
@@ -167,10 +176,11 @@ and the sets the room to be free and removes the patient from the room
         }
         return false;
     }
-/*
-Here the start treatment occurs filling all the rooms with a patient
-@return startTreatmentEvent sends the patient that are in the room
- */
+
+    /**
+     * Here the start treatment occurs filling all the rooms with a patient
+     * @return startTreatmentEvent sends the patient that are in the room
+     */
     public StartTreatmentEvent[] getTreatmentEvents() {
         StartTreatmentEvent[] treatmentEvents = new StartTreatmentEvent[rooms.length];
         for (int i = 0; i < rooms.length; i++) {
@@ -178,10 +188,12 @@ Here the start treatment occurs filling all the rooms with a patient
         }
         return treatmentEvents;
     }
-/*
-treats the patients that have high priority
-by immediately sending them to room once the room is available
- */
+
+    /**
+     * treats the patients that have high priority
+     * by immediately sending them to room once the room is available
+     * @return An ArrayList of patients of priority 1 who are ready to leave their treatment rooms
+     */
     public ArrayList<Patient> getDonePriority1Patients() {
         ArrayList<Patient> patients = new ArrayList<>();
         for (Room room : rooms) {
@@ -191,9 +203,11 @@ by immediately sending them to room once the room is available
         }
         return patients;
     }
-/*
-set all the rooms to be free if patient has been treated.
- */
+
+    /**
+     * set all the rooms to be free if patient has been treated.
+     * @return Integer count of rooms available
+     */
     public int roomsAvailable(){
         int count = 0;
         for(Room room: rooms) {
