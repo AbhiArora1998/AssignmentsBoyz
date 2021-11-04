@@ -90,34 +90,66 @@ public class Patient {
         }
         patients.add(this);
     }
+    /**
+     * returns an int value which is the patient number
+     * @return patient number
+     */
 
     public int getPatientNumber() {
         return patientNumber;
     }
+    /**
+     * returns if the patient is of type emergency or not
+     * @return returns the char E or W
+     */
 
     public char getType() {
         return type;
     }
+    /**
+     *
+     * @param type set the type of the patient
+     */
 
     public void setType(char type) {
         this.type = type;
     }
+    /**
+     * returns an int value which is the priority of the patient
+     * @return priority of the patient which is 1 to 5
+     */
 
     public int getPriority() {
         return priority;
     }
+    /**
+     * returns an int value which the time patient arrived
+     * @return patient arrival
+     */
 
     public int getArrivalTime() {
         return arrivalTime;
     }
+    /**
+     *
+     * @param arrivalTime gets us the time patient arrived at the hospital?
+     */
+
 
     public void setArrivalTime(int arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
+    /**
+     * provides the treatment time of the patient
+     * @return treatment time of the current patient
+     */
 
     public int getTreatmentTime() {
         return treatmentTime;
     }
+    /**
+     * This toString prints all the deails about the patient
+     */
 
     @Override
     public String toString() {
@@ -129,39 +161,84 @@ public class Patient {
                 ", arrivalTime=" + arrivalTime +
                 '}';
     }
+    /**
+     * returns the time the patient has to wait before the treatment has started
+     * @return waiting time of the current patient
+     */
 
     public void increaseWaitingTime(){
         waitingTime++;
     }
+    /**
+     * returns an int value which is the patient number
+     * @return patient number?
+     */
 
     public int getWaitingTime() {
         return waitingTime;
     }
+    /**
+     * returns the time the patient get assessed
+     * @return assessment time of the patient
+     */
 
     public int getAssessmentTime() {
         return assessmentTime;
     }
 
+    /**
+     *
+     * @param assessmentTime  sets the assessment time of the patient
+     */
+
     public void setAssessmentTime(int assessmentTime) {
         this.assessmentTime = assessmentTime;
     }
 
+    /**
+     *
+     * @return returns the assessment completed time of the current patient ?
+     */
     public int getAssessmentCompletedTime(){ return assessmentCompletedTime;}
 
+    /**
+     *
+     * @param assessmentCompleted  sets the patient completed time when the patient is done?
+     */
     public void setAssessmentCompletedTime(int assessmentCompleted) {this.assessmentCompletedTime = assessmentCompleted;}
 
+    /**
+     * @return time the patient is done with the treatment room?
+     */
     public int getFinishTreatmentTime(){ return finishTreatmentTime;}
 
+    /**
+     *
+     * @param finishTreatmentTime  sets the time when the patinet is done with the treatment
+     */
     public void setFinishTreatmentTime(int finishTreatmentTime) {this.finishTreatmentTime = finishTreatmentTime;}
 
+    /**
+     *
+     * @return the time when the patient left the hospital
+     */
     public int getDepartureTime(){return departureTime;}
 
+    /**@param time sets the departure time of the current patient
+     */
     public void setDepartureTime(int time){departureTime = time;}
 
+    /**
+     *
+     * @return what event patient  is at
+     */
     public Event getCurrentEvent() {
         return currentEvent;
     }
 
+    /**
+     * @param currentEvent sets the current event of the patient
+     */
     public void setCurrentEvent(Event currentEvent) {
         this.currentEvent = currentEvent;
     }

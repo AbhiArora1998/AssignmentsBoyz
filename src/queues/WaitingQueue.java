@@ -117,7 +117,10 @@ public class WaitingQueue {
     public boolean isEmpty(){
         return head == null;
     }
-
+    /**
+     * this tell us total amount of patients in the list
+     * @return count of the patient
+     */
     public int size(){
         int count = 0;
         Node<Event> tmp = head;
@@ -127,7 +130,10 @@ public class WaitingQueue {
         }
         return count;
     }
-
+    /**
+     * Returns the Current patient that we are looking at in the waiting queue
+     * @return returns the patient's intsance?
+     */
     public Patient getPatient(int i){
         Node<Event> tmp = head;
         while(i > 0){
@@ -136,7 +142,11 @@ public class WaitingQueue {
         }
         return tmp.getInfo().getPatient();
     }
-
+    /**
+     * It returns what event that patient is in
+     * @return returns patient
+     * @param i takes integer to check what patient we are at
+     */
     public Event getEvent(int i){
         Node<Event> tmp = head;
         while(i > 0){

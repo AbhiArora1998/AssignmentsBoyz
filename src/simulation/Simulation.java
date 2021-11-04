@@ -100,7 +100,9 @@ public final class Simulation {
         }
         increaseWaitingTimes();
     }
-
+/*
+This method tells the extra amount of timet the patient has to wait before getting into next event
+ */
 
     private static void increaseWaitingTimes() {
         //Increase waiting time for everyone that is treated and waiting to be admitted. (i = 0 is currently being assessed so skip it)
