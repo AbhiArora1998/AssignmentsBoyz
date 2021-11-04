@@ -32,21 +32,35 @@ public class DepartureEvent extends Event {
         this.patient = patient;
     }
 
+    /**
+     * Starts DepartureEvent
+     */
     @Override
     public void start() {
         super.start();
         shouldStart = false;
     }
 
+    /**
+     * Ejects patient from their treatment room, records their departure time, and prints a report
+     */
     @Override
     public void finish() {
         isDone = true;
         patient.setCurrentEvent(null);
+
+        // Ejects patient from their treatment room and records the time
         treatmentRooms.releasePatient(patient);
         patient.setDepartureTime(getCurrentClockTime());
+
         System.out.println(this);
     }
 
+    /**
+     * Returns a String reporting the current time, patient number and priority,
+     * and the number of available treatment rooms
+     * @return The current time, patient number and priority, and the number of available treatment rooms
+     */
     @Override
     public String toString() {
             return "Time " + getCurrentClockTime()+ ":  " + patient.getPatientNumber()
