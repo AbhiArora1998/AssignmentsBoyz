@@ -33,8 +33,8 @@ public class Patient {
     private int arrivalTime; //When did the patient arrived
     private int waitingTime;
     private int assessmentTime;
-    private int assessmentCompletedTime;
-    private int finishTreatmentTime;
+    private int assessmentCompletedTime; //this is when the assessment is completed used for priority 2-5 patients to calculate waiting time for the treatment room
+    private int finishTreatmentTime; //this is when the treatment is completed used for priority 1 patients to calculate waiting time for admitted to hospital
     private int departureTime;
     private Event currentEvent;
     private static final Random random = new Random(1000);
@@ -53,7 +53,7 @@ public class Patient {
         this.treatmentTime = treatmentTime;
         waitingTime = 0;
 
-        //If the patient arrived in an emergency, make them top priority
+        //If the patient arrived in an emergency, makes them top priority
         if(type == CODE_E){
             priority = HIGHEST_PRIORITY;
         } else {

@@ -26,7 +26,8 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner inputReader = new Scanner(System.in);
         boolean filework = false;
-        Scanner fileInput = new Scanner(System.in); //needs to be set so javaa is happy
+        Scanner fileInput = new Scanner(System.in); //needs to be set so java is happy
+
         while (!(filework)) {
             System.out.println("Please enter input file name: ");
             String dataFileName = inputReader.nextLine(); //get file name
@@ -38,7 +39,7 @@ public class Main {
             if (dataFile.canRead()) {
                 fileInput = new Scanner(dataFile);
                 filework = true;
-            } else System.out.println("ERROR INVAILD INPUT FILE");
+            } else System.out.println("ERROR TEXT FILE COULD NOT BE FOUND");
         }
         System.out.println("Simulation begins...\n");
 

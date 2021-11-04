@@ -7,8 +7,7 @@ package queues;
  * Implements a place in line for a patient to wait. Each queues.PatientNode stores
  * the patient behind them while in a line.
  *
- * @author Noah Stobbe
- * Student Number: 230140171
+ * @author The Boyz
  * @version 1
  */
 public class Node<T> {

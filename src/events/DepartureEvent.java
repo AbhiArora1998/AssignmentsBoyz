@@ -11,8 +11,7 @@ import static simulation.Simulation.treatmentRooms;
  *
  * This event occurs when patients depart from the hospital
  *
- * @author Sebastian Lopez
- * Student Number: 230141246
+ * @author The Boyz
  * @version 1
  */
 

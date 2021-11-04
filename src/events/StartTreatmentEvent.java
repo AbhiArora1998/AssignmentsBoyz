@@ -7,6 +7,12 @@ import static simulation.Clock.getCurrentClockTime;
 import static simulation.Simulation.treatmentRooms;
 import static simulation.Simulation.waitingQueue;
 
+/*
+This class specifically works with the treatment room
+it checks if the rooms are available
+It lets patient enter the treatment room
+ */
+
 public class StartTreatmentEvent extends Event {
 
     public StartTreatmentEvent(Patient patient) {
