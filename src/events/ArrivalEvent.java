@@ -5,7 +5,16 @@ import simulation.Patient;
 import static simulation.Clock.getCurrentClockTime;
 import static simulation.Simulation.assessmentQueue;
 import static simulation.Simulation.waitingQueue;
-
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assignment 1 Fall 2021
+ *
+ * This class takes care of the arrival event that happens in the hospital simulation
+ * Patients are created and given All patients undergo the arrival event
+ *
+ * @author The Boyz
+ * @version 1
+ */
 public class ArrivalEvent extends Event {
 
     private static final int ARRIVAL_PROCESSING_TIME = 0;
