@@ -52,5 +52,4 @@ public class DepartureEvent extends Event {
             return "Time " + getCurrentClockTime()+ ":  " + patient.getPatientNumber()
                     + " (Priority " + patient.getPriority() +") departs, " + treatmentRooms.roomsAvailable()+ " rm(s) remain";
     }
-
 }
