@@ -7,10 +7,16 @@ import static simulation.Clock.getCurrentClockTime;
 import static simulation.Simulation.treatmentRooms;
 import static simulation.Simulation.waitingQueue;
 
-/*
-This class specifically works with the treatment room
-it checks if the rooms are available
-It lets patient enter the treatment room
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assignment 1 Fall 2021
+ *
+ * This class specifically works with the treatment room
+ * it checks if the rooms are available
+ * It lets patient enter the treatment room
+ *
+ * @author The Boyz
+ * @version 1
  */
 
 public class StartTreatmentEvent extends Event {
@@ -21,18 +27,31 @@ public class StartTreatmentEvent extends Event {
         processingTime = patient.getTreatmentTime();
     }
 
+    /**
+     * If there is a treatment room available at this time, this event starts, the patient is put into a treatment room,
+     * the patient is removed from the waiting room, and a report of this event is printed.
+     */
     @Override
     public void start(){
         if(treatmentRooms.anyRoomAvailable()){
             super.start();
+
+            // Add patient to available treatment room
             treatmentRooms.placePatient(treatmentRooms.getRoomAvailable(), this);
+
             patient.setCurrentEvent(this);
+
+            // Remove patient from waiting room
             waitingQueue.remove();
+
             System.out.println(this);
         }
-            shouldStart = false;
+        shouldStart = false;
     }
 
+    /**
+     * Initialize a TreatmentCompletedEvent and start it
+     */
     @Override
     public void finish() {
         patient.setCurrentEvent(null);
@@ -42,6 +61,10 @@ public class StartTreatmentEvent extends Event {
         treatmentCompletedEvent.setShouldStart(true);
     }
 
+    /**
+     * Returns a String reporting the current time, patient number and priority, and what the patient is undergoing
+     * @return The current time, patient number and priority, and what the patient is undergoing
+     */
     @Override
     public String toString() {
         if(isDone()){
