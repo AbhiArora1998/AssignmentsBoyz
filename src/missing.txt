@@ -1,6 +1,0 @@
-1 start treatment
-
-2 departure event
-3 admitting to hospital event
-
-4 treatment completed event 
