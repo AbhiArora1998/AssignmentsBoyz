@@ -73,7 +73,7 @@ public class ArrivalEvent extends Event {
             patient.setAssessmentCompletedTime(getCurrentClockTime());
             return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Emergency) arrives" ;
         } else if (patient.getType() == Patient.CODE_W){
-            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Walk-in) arrives" ;
+            return "Time " + getCurrentClockTime() + ":  " + patient.getPatientNumber() + " (Walk-In) arrives" ;
         } else {
             return "Error: simulation.Patient not initialized (in to String).";
         }
