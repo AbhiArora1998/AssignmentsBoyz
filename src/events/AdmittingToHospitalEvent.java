@@ -16,7 +16,7 @@ import static simulation.Clock.getCurrentClockTime;
 public class AdmittingToHospitalEvent extends Event {
 
     private static final int ADMITTING_PROCESSING_TIME = 3;
-    private static AdmittingToHospitalEvent currentAdmittingToHospitalEvent = null;
+    public static AdmittingToHospitalEvent currentAdmittingToHospitalEvent = null;
 
     public AdmittingToHospitalEvent(Patient patient) {
         super();
@@ -32,6 +32,7 @@ public class AdmittingToHospitalEvent extends Event {
         if(currentAdmittingToHospitalEvent == null){
             super.start();
             patient.setCurrentEvent(this);
+            currentAdmittingToHospitalEvent = this;
         }
         shouldStart = false;
     }
