@@ -37,12 +37,6 @@ public class TreatmentCompletedEvent extends Event {
         super.start();
         patient.setCurrentEvent(this);
 
-        // Gives patients with priority 2-5 the DepartureEvent
-        if(patient.getPriority() != Patient.HIGHEST_PRIORITY){
-            patient.setCurrentEvent(new DepartureEvent(patient));
-            patient.getCurrentEvent().setShouldStart(true);
-        }
-
         shouldStart = false;
     }
 
@@ -51,8 +45,13 @@ public class TreatmentCompletedEvent extends Event {
      */
     @Override
     public void finish() {
-        patient.setCurrentEvent(null);
+
         isDone = true;
+        // Gives patients with priority 2-5 the DepartureEvent
+        if(patient.getPriority() != Patient.HIGHEST_PRIORITY){
+            patient.setCurrentEvent(new DepartureEvent(patient));
+            patient.getCurrentEvent().setShouldStart(true);
+        }
         System.out.println(this);
     }
 

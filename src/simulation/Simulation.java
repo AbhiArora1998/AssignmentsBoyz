@@ -60,23 +60,21 @@ public final class Simulation {
             }
 
             //AdmittingToHospital Event
-            ArrayList<Patient> priority1Patients = treatmentRooms.getDonePriority1Patients();
+
             if (treatmentRooms.anyRoomBeingUsed()
-                    && !priority1Patients.isEmpty()) {
-                Patient temp = priority1Patients.get(0);
-                if (priority1Patients.size() > 1) {//gets priority 1 patient that has waited the longest
-                    for (Patient patient : priority1Patients) {
-                        if (patient.getWaitingTime() > temp.getWaitingTime()) {
-                            temp = patient;
+                    && !treatmentRooms.getDonePriority1Patients().isEmpty() && AdmittingToHospitalEvent.currentAdmittingToHospitalEvent ==null) {
+                Patient temp = treatmentRooms.getDonePriority1Patients().get(0);
+                if (treatmentRooms.getDonePriority1Patients().size() > 1) {//gets priority 1 patient that has waited the longest
+                    for (int i = 0; i < treatmentRooms.getDonePriority1Patients().size(); i++) {
+                        if (treatmentRooms.getDonePriority1Patients().get(i).getWaitingTime() > temp.getWaitingTime()) {
+                            temp = treatmentRooms.getDonePriority1Patients().get(i);
                         }
                     }
                 }
-                if(temp.getCurrentEvent()==null){
+                if(temp.getCurrentEvent() instanceof TreatmentCompletedEvent){
                     temp.setCurrentEvent(new AdmittingToHospitalEvent(temp));
-                    temp.getCurrentEvent().setShouldStart(true);
-                } else {
-                    temp.getCurrentEvent().setShouldStart(true);
                 }
+                temp.getCurrentEvent().setShouldStart(true);
             }
 
             for(Event event: Event.events){

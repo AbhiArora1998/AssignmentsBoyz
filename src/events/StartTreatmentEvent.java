@@ -63,11 +63,11 @@ public class StartTreatmentEvent extends Event {
      */
     @Override
     public void finish() {
-        patient.setCurrentEvent(null);
         isDone = true;
 
         TreatmentCompletedEvent treatmentCompletedEvent = new TreatmentCompletedEvent(patient);
         treatmentCompletedEvent.setShouldStart(true);
+        patient.setCurrentEvent(treatmentCompletedEvent);
     }
 
     /**
