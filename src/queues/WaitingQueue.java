@@ -27,43 +27,43 @@ public class WaitingQueue {
      * @return none
      */
     public void add(Event event) {
-        Node<Event> newPatientNode = new Node<>(event);
+        Node<Event> newEventNode = new Node<>(event);
         // If there is no line
         if (head == null) {
-            head = newPatientNode;
+            head = newEventNode;
         }
         // If the head has losing priority
-        else if (head.getInfo().getPatient().getPriority() > newPatientNode.getInfo().getPatient().getPriority()) {
-            newPatientNode.setNext(head);
-            head = newPatientNode;
+        else if (head.getInfo().getPatient().getPriority() > newEventNode.getInfo().getPatient().getPriority()) {
+            newEventNode.setNext(head);
+            head = newEventNode;
         }
         // If the head has the same priority and the head has been in line for less time
-        else if ((head.getInfo().getPatient().getPriority() == newPatientNode.getInfo().getPatient().getPriority()
-                && (head.getInfo().getPatient().getPatientNumber() > newPatientNode.getInfo().getPatient().getPatientNumber()))) {
-            newPatientNode.setNext(head);
-            head = newPatientNode;
+        else if ((head.getInfo().getPatient().getPriority() == newEventNode.getInfo().getPatient().getPriority()
+                && (head.getInfo().getPatient().getPatientNumber() > newEventNode.getInfo().getPatient().getPatientNumber()))) {
+            newEventNode.setNext(head);
+            head = newEventNode;
         }
         // If the head has winning priority or event number and is the only event in line
         else if(head.getNext() == null) {
-            head.setNext(newPatientNode);
+            head.setNext(newEventNode);
         }
         // If we need to trace further down the line until we find a priority that loses
         else {
             Node<Event> temp = head;
             // While the next event in line has winning priority, or has the same priority but has waited longer
-            while(temp.getNext().getInfo().getPatient().getPriority() < newPatientNode.getInfo().getPatient().getPriority()
-                    || (temp.getNext().getInfo().getPatient().getPriority() == newPatientNode.getInfo().getPatient().getPriority()
-                    && temp.getNext().getInfo().getPatient().getPatientNumber() < newPatientNode.getInfo().getPatient().getPatientNumber())) {
+            while(temp.getNext().getInfo().getPatient().getPriority() < newEventNode.getInfo().getPatient().getPriority()
+                    || (temp.getNext().getInfo().getPatient().getPriority() == newEventNode.getInfo().getPatient().getPriority()
+                    && temp.getNext().getInfo().getPatient().getPatientNumber() < newEventNode.getInfo().getPatient().getPatientNumber())) {
                 temp = temp.getNext();
                 // If we reach the end of the line (because all other patients have more priority)
                 if (temp.getNext() == null) {
-                    temp.setNext(newPatientNode);
+                    temp.setNext(newEventNode);
                     return;
                 }
             }
             // At this point, we know that the spot for the new event is between temp and temp.getNext()
-            newPatientNode.setNext(temp.getNext());
-            temp.setNext(newPatientNode);
+            newEventNode.setNext(temp.getNext());
+            temp.setNext(newEventNode);
         }
     }
 
