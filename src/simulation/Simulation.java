@@ -18,6 +18,16 @@ import queues.WaitingQueue;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * This file is part of a solution to
+ *		CPSC300 Assignment 1 Fall 2021
+ *
+ * Implements clock cycles to run events
+ *
+ * @author The Boyz
+ * @version 1
+ */
+
 public final class Simulation {
 
     public static final int NUMBER_OF_TREATMENT_ROOMS = 3;
