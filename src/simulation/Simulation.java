@@ -114,7 +114,7 @@ public final class Simulation {
 
         //this increases wait time of priority 1 patients that are in the treatment room and are not addmitted
         for (Patient patient : treatmentRooms.getDonePriority1Patients()) {
-            if (patient.getCurrentEvent() == null) {
+            if (patient.getCurrentEvent() instanceof TreatmentCompletedEvent) {
                 patient.increaseWaitingTime();
             }
         }
